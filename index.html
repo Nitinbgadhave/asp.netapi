@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <style>
+         body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('./main.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      /* Adjust other background properties as needed */
+    }
+
+    .login-container {
+      width: 80%;
+      margin: 100px auto;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .icon-container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .icon-container a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .icon-container a img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      transition: transform 0.3s ease-in-out;
+    }
+    .icon-container span {
+  font-weight: bold; /* Make the text bold */
+  font-size: 20px; /* Adjust the font size as needed */
+}
+
+    .icon-container a img:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="login-container">
+    <!-- <marquee width="60%" direction="left" height="100px"> -->
+      <div>
+        <img src="./sil.png" alt="logo">
+       </div>
+      <!-- </marquee> -->
+    <h2> </h2>
+    <div class="icon-container">
+      <a href="./admin.html" onclick="login('admin')">
+        <img src="./admin.png" alt="Admin Icon">
+        <center><span>Admin</span></center>
+      </a>
+      <a href="./user.html" onclick="login('user')">
+        <img src="./user.png" alt="User Icon">
+        <center><span>User</span></center>
+      </a>
+      <a href="./Engineer Login.html" onclick="login('engineer')">
+        <img src="./service.png" alt="Service Engineer Icon">
+        <center><span>Service Engineer</span></center>
+      </a>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+  <script>
+    function login(userType) {
+      // Add your login logic here based on the userType (admin, user, engineer)
+      // For example, you can redirect users to different pages based on userType
+      console.log('Logged in as ' + userType);
+    }
+  </script>
+</body>
+</html>
+ 

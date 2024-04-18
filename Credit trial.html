@@ -1,0 +1,176 @@
+     <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Credit</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d2e5e1;
+        }
+    
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #aec8e2;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        form {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: 1fr 1fr; /* Two equal columns */
+        }
+    
+        label {
+            font-weight: bold;
+            display: block;
+        }
+    
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    
+        .error-message {
+            color: red;
+        }
+    
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    
+        .button-container button {
+            font-weight: bold;
+            font-size: 20px; /* You can adjust the size as needed */
+        }
+       
+    </style>
+    
+</head>
+
+<body>
+    <div class="container">
+        <center><img src="./sil.png" alt="Company Logo"></center>
+        <center><h1>Admin Credit Page</h1></center>
+        <form id="adminForm">
+            <label for="empID">EmpID <span class="mandatory"></span>*:</label>
+            <input type="text" id="empID" required>
+
+            <label for="datetime">Date and Time <span class="mandatory">*</span>:</label>
+            <input type="datetime-local" id="datetime" required>
+            
+
+            <label for="notes">Add a Notes <span class="mandatory"></span>*:</label>
+            <textarea id="notes" required></textarea>
+
+            <label for="credit">Enter Amount for Credit <span class="mandatory"></span>*:</label>
+            <input type="text" id="credit" required>
+
+            <div class="error-message" id="errorMsg"></div>
+
+            <div class="button-container">
+                <button type="button" onclick="saveData()">
+                    <i class="material-icons">currency_rupee</i>Credit
+                </button>
+
+                <button type="button" onclick="goBack()">
+                    <i class="material-icons">arrow_back</i>Back
+                </button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function saveData() {
+            const confirmation = confirm('Are you sure you want to credit the amount?');
+            if (confirmation) {
+                const empID = document.getElementById('empID').value;
+                const datetime = document.getElementById('datetime').value;
+                const notes = document.getElementById('notes').value;
+                const credit = document.getElementById('credit').value;
+    
+                // Validate empID and credit
+                if (!/^\d+$/.test(empID) || !/^\d+$/.test(credit)) {
+                    document.getElementById('errorMsg').innerText = 'EmpID and Credit should only contain digits.';
+                    return;
+                }
+    
+                document.getElementById('errorMsg').innerText = ''; // Clear previous error message
+    
+                // Replace 'YOUR_DEPLOYMENT_URL' with the actual deployment URL
+                const deploymentURL = 'https://script.google.com/macros/s/AKfycbzj_6oEWMleWUqUsKD__dlGiuy3h-B2xdtVeyNcM0TbCt_y-b4v4NKyhzWWSbHgTw9H/exec';
+    
+                // Make a POST request to the deployment URL
+                fetch(deploymentURL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `empID=${encodeURIComponent(empID)}&datetime=${encodeURIComponent(datetime)}&notes=${encodeURIComponent(notes)}&credit=${encodeURIComponent(credit)}`,
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Data saved successfully');
+                            // Display success message in a popup
+                            alert('Amount credited successfully!');
+                            // Optionally, you can clear the form fields after saving
+                            document.getElementById('adminForm').reset();
+                        } else {
+                            console.error('Error saving data');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+    
+        function goBack() {
+            const confirmation = confirm('Are you sure you want to go back? Any unsaved changes will be lost.');
+            if (confirmation) {
+                // Specify the desired URL as an argument to window.location.href
+                window.location.href = './select.html';
+            }
+        }
+    
+        // Function to format the current date and time
+        function getCurrentDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+    
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+    
+        // Set the current date and time to the input on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const datetimeInput = document.getElementById('datetime');
+            datetimeInput.value = getCurrentDateTime();
+        });
+    </script>
+    
+    
+
+</body>
+
+</html>

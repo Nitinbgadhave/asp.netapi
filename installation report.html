@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- <meta charset="UTF-8"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Machine Installation/Commissioning Report</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="./installation.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  </head>
+<body>
+<div class="container">
+ 
+  <center><img src="./sil.png" alt="Company Logo"></center>
+ 
+<!-- <div class="logo-container">
+  <center>
+    <img src='data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAATMAAAA6CAYAAADcIL4iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAJ3VJREFUeNrsfQmcHFWdf91VfU0fc5+ZTCYnIagTcNldBGHisiCIq4G/ICvqbqK7HiiryXoBu+omwK7y91gZQYKyq5tRLhVcCIcIcsiEIBJgksxM5j76vrvO/b06MjU11T3dMz2EIf37fN70dHXVu6ret76/3/u938Oxiiyb4JAUSFf5q7ve5a7aNCLyaS9OSneGZp4/nMuME3CKrJ2ybKIoSuVGVOSUEKrSBcsjBlCd4/J0NrNcy2/TyYggydFJiY+f7/WeHgyLqWlRiBmAV5GKVGTJY64iy8LKQNBnDUPX9wGQneZwvm0Nx7Wfxrk2PptKDa3juNpKL1WkIhUwWzEiqsQLxzKyzLezbN2L6UQfdDop46oWWpGKVKSiZr65RdGNVQlRCnU53Zvvj4Z/E+T5wQu8vnPcBJF7IBY5WDTL04geKSuKVNFKK1KRvOOkIsst2wM1Z7WzXP2UkEuuplj3PbHwiy9n0qMIpJTKBEBFKvLmAjOVPRTKD8eXa7AqCwECieNEobYC45EXygMyIAw7mF3noeslyCdf670kRftJkhgVeF7Mf968PkX5NtJM3RXVNe/tDQfvHeP5SCkgWAGzilTUzBKE1FQgGUaoXGBUnbRGSkWCRyFR27aINuB6ikkiD2kOSC10LaAnAXWX1nDcpm+1d95xMJV6rlQwW0jCXX9mPdQFqRvSHpvTD+hpr/XulvCi3GWT925TnrvylI3ZXNOn16eYMvLJTkg9NsdL7YeF2mWVHZBuK+H8xeRh9/sApK2QIgXytWuLuZ+K6d+IXo8D+n3CFvk8YMU+a0sCM52J4WjAoX9YgjhxzFwIA58UkCNF80PAMfOn5Vybz4K/pSU5l1NkvhAjrKMoH4PjjB0AQI2JoCiEMrIsFgKkaor2cgTuUEzXwXcAFRynMJwGoIpPCHwIm3UvO9HzRrm45XuxIihKNinwmKjIOLaI60uQhR7SblPadpJfxEY9e/SBdqr2Q6nSoQPc5ctcjt/Uh736PYq8KZkZGsxAVWSOIIgLvb7zuqt8FzUz7CrlhFaGoAsn0PcAfHdSJC5quibS1ghc/VkhNP1TQefhJiDEtTxOgNac/1GeJIbRaVmOXzc89I8H08nXkBpoZoaGn1cDRTt7O9f/tJN1bMkocoqYncFFdA33AAD/Vf8rFwLrOWrNw2BAXpJ0/6xz/Y83co6zeEXJIXxmMJyspilCUDDFTdO1t46PXH/t8OC/UIBtoEYKxb5S8qvssyot+k5a1HRDrS/Ihss7gM2y9000OHfog2T3Kd4Ppch2vZ1738DyunQA7XtTgZk2iBR5E+dovqm1/T8u8Pku43CS4RVZsbObSWW23UBOMguACCrX8ISQG7JjK6p9CwptoelVqxj2DA9FNjoUAlEbwsgDgIcI8bnhoCCkC5XnJknvO5yubgAUp6KjNCosKctqqwhRwP6USQ+XiFmF2gf5KgowPqqQLQ0BGTLkyUvvXL/+cBcjB/KodidTjIEZOcX7oVRme2A5wcWGEe7XmezAchRQsp8ZsuOggXQa51h177qND1/kC1yekiRqRuCluCQpMUmSrQl+l4FFlS2lIOVg/PZnM3+cEIQsobE1xTLg1bY1MmybiyQDWVlG6hpKCko5yAOh7qvZ7OGIKIXyqG8qMG/gnM0sTjihTEnU85A0AAHAwfC4JCYGc9nXl6oCGi+CzU7nqgu9/jOhLDGP6qy295aWts+c56l6u/naRUq3PpCttpWAiSlv1dWFk8FGdut1CBQov7vIPKypZwX1Q7nlER1kynmPcB2weguouNhJBzOVkSmK7CVIx+0da3/UznKbpkVBQMYvNAmAQMUu4WVOOnhhv0vEf78QMLQyTHuAolhk19PrYqizCrA77DjPH03IUk7vCwWzMdQBuGzR0RHH56rDqN0YgHhsKJc7gmkMVF4skCHVHf3vIkjXFxuav1RPUW6ziiro6ivcA/H9/sAF57i9215MpfrL9Na0Yx5mptOnqwknk40Y6mRvkW14q/ZDOe1a+5ch3wN6H+0uYG88+WCmQnBD8z9sdXnOj4miTOM4jb3BKwkUTBv1L6SST+XT63TmhHVwjnZDrbTmQapgllEpL6icZD5KtdHh2GJXjqJdh8VFaWYglw1ims2tZGaGXEeQyithikSCavlcMnH4qWT8yU/VN30S/b7F4VqL2ruWc6xW2SZNuf65seWL/zw+vCciick6mq6upxmfBYPLYYvahVXkrd4PXSXYCEuVvXlePDtOKpgZxuYASTkuq67emZRE1V1B1FQvlEQjSSUm5NleQhKRRSkpSuHD2cxROzuVXleRBR7WxjBtGeQ0giHXEbgeEoCGiCzsKUkUhzLZgYVsXZ2sYzOyjuWpP6i72ZeVRSC6MRlxpsO5Zn/HulvPdLk3o7qhY/uC0/de7AtcMnrG1sGb29rvAtUa++Hqzod+u/H0B+9Yvbbn3nDonsfisae7q7zvfHDdxn1/4fa8XcsTX8yLZaCAXUXR1ZFdNirYybL1bC+hDSezH4zr7NJtJ6n/BvLYHLcvU3m9izAJLEooAi/u4UezdLws81dV135wAzAFHrQptzqpaGPwVzCLg0JBlgWpeDKDAM1Jkvjv4rGDIUGIme14ZjBDaqWPpKvXs45NDDTRTVI0YTH+hwVhelDghzQzlNoRhCUPuZmmXes4bo2LoKAP4DLTOahMDpTeY3zmVaMepTJd1E39udzY8+nk4Z+0r/n2r+KxJ26ZGLvp83UNO9dw3J9De0lko0PnIlDucrn/moGrHo5Ef35tXcPffqSu4ap/HRu56Z5I6DFMm5iRFqkWRAoMUkM12IOV7gtVLgDbs4D62bvIPPAV1A/lkB6djVnBa79uDyz3hMCBPOqtHyuzqwYlF2njkbVJSQRU/LPJ+P1BUUiBSsTgGqChWTdSJycUctcAhkAiU5p+3PgNNxEYNCOHMzCeWdVfy2yUxfVPxexXhuvqo+ijqJpfRsO/TshSGoGLpMwdwITh3wYqcFyW4ofSydcQUzPUZMQoHQThOpLJ/PHVTPo1dEyUgWSaAFHPQ/FTVOCVdOaVIZKfgnIEs6EdnY/8156IxR7V6yYtZgIAVMXMv02Mff+HM1P/9eXGls8+tmHzU60s+3YBLUjXZ0+NTsiiSRA4dtOq9nvuj4Zuu+i1V66YEIUosTRH2ohu49hfBOvYg735/KvKBSorvR+KlZ26fbArD6CV286Zz15XXjC7wOvbiMZksUziUDb50nPHE8/mmz1DA6qGonDEHhTNh0ylPZhKLlQgO5HgF9IFbMYLpEkyDPwAgDqwkdhcfzNcB0DEEokZQYi+u8p7OolrkwE24Is54Ly7Q9NfFEyoaNavgenI73C71xeaCSRxXP7u9PinCvFMoGvOC7zeM5ai64PWSwI4Z+6Lhva9y+P9Kxz5q0mSSOJz3TNQHyFVm4bXxXPJ1GEEZNAfdD7fthLfoAGTytFV4Nxu3e7R8yYYmOVmSCu1HxYD2i9YQNuYbSwnO/OXCHKLB7Ofrlm/H5CmFSujVzlyX1Dy26EU86esqY5Kvt/t7FkIMNHEAyRyATapAJOR8ALgzBIEiRdUaxElVRZa+4mXcQYEzWq6c6BSWoHsRHlwThp+v8Tr3XYoGv55Fsg1mZ+ZjS+C5ey12FK68hiOy/lwlyp9y8Aiyt0PpS5neqNtZzux+bOZ25dwb+2kIw+QRcr07JzIh/KSZAAGs7ecvYSXfH7pE3BKkZa2wlClLrgsS1vK9SZA+SCgQhML+coG+krCOcpZHu/Fj2zZOlbm22E3oPdjhQ3Ednamrjxv+O5FvKV7sPkzYF0Fyig3gyu2H1aaGP5yu4oAoMXKjiLtaMW8IAo+O9T2I69dAU+7o0i7mQxMJ2sau8sSCsOYO8D1gctoZjVcKcHTXdFYWbaAHQl3EISjQANw5NeVU5RMIZUa2CHLQloqnuFaeWIjw1Tvamq5uZ6iV/GKIuM2k6TIfgl1J59OJh/ZHwr+AHqFUvIsa/phaQ+dP8+A71tgEA/YPIDdNkDTkedBXWgmckAHoz15bDyRMg++xfbDSpTd+r3qWoa8d+QBs54F7n13Hptad6Fnh3ogGn6qmIGGBm4Tw/iuqanfDiqNR0FBVHGkT+IKwAxoitoKG225j7osEpEeRZJkZUoW0SpuBZ87NS3b/I9EQtchaxtaYP14PPbsuMDHFhMp4v/5A2e7ALCs6xf1vMS7w6HHBGX+7J+x7vR0h3Pz7qbWr8VEMUZaVFpk7PeQpO/eSOjOeyKhB3HNBrikdZIA2GhCRjzb5Tn/qtq6T2RFUSFtQichVxgXSZIPRsMP9cxM3INUbiGPzaxIMDOW8XToD0wPNjs72J3ngRywvGmtg2GP/jD2mN62txVQGYthR1YVqNyLppfaDytVtun2s3Ixsu2mZMfKDizA0gxn3p2m/t2Vp/9PPDvUQrG+tMGNEWiwOAmi6qM1ddd1ctx6YCwyUaRr1WIoCwIuNEOXk+XUfwVnbr1+bPjrU6KQRXayQo6phM5w3u50rvp+x9oHq0jKJ+quDSY2hU8I/ODPo5HTBUlKWYFKM7Jj8lXVtRdfWVu3PSeK8wzxqD8cNE2/mkk/jr7TBEFL+ZYfFcnMjFBFAKRpVgMxXNRWLqgMVfWTQwvbCYIZzmZHL/X53wW/R380M3WXAJiM2mFzI4tx1dhhepCL9dDutbxp7RxLbyvCLtRTArNCoHXMZuAYrhKFJJ9rhjm0zVL7YaWKeUJgsbKQ+4zZTmct286M0G1zr7FCLI8qJtaXzmyIY9nscF8q+cdWhlkfEkWeymOgLrNwH6+r/1Izzaz+yNCRa8JQbkGWptvi21nHWl5W2JAsqDZ8s1sGgDLz+0T8hRQAmcGyrACATm6gmc6EIGApWZYsqK2uzUSOtC9lUoNqvpCHTT5FAxlqTwfD1n971eo9cUkKXXd88BM3trR9hwOQBHVZQWtRHQQJejGBD+Syr31i8OgVMUnM3djc9pX3+wIXf31i5BuPxmMvLoLBlrK42sySBopQA7EiHu7dizjfWs4u/Q29FGApRz+sZOlb5D0s5d5dnqe/9urgVSoz3G3Or1hmhdiM6gLxYjr5FFJ94DuDwOwNSAQAp/DeQOBDNza1fPWERpYfGNQ2beAcp1WRpAPZ2pAaZuQHFIxEjq7AbF6XC9j9aJygTnM6z9D+n71ezQMYkIMkmYgoBqcEfszoo8XcYVJ3+N3m9W75xdoNd/4uEX/ywwNH/mmCzw29kk49vj8cvHNKECYRdRzOZft/HQ3/7KV06unfpxL9L6RTr19y5NWr7wxN3fXNllX/dq6naqNi8ksr4a28uwR2tDsPAO0tEZgO6OpNZBEA0peHBS5FTSpXP6xk2btMTLMXK+yQO6A/C6W4hOy02jWL9igQddbx36GZuwdzuQHkGLsUtaoU4oIAJCiK2JXVdZ85y+XepDMtIj+eYdhqht3IAkmzOgWrwAyn9OdyrxkqtJUloU8PSTpbWHa9PquI2+UxIwqT04IwoR5bZBge47KQKAmfOj5w7c2T43eu47ima5uar/vs8ODnrjrW/7HPjwxejQB418jQlZceefVDIVEI76itv1y3s5E/Ds788n1HXv3AM8lE/yKBFVH1gP6A7C7w1l6DFZ4R3Kvnk28xuAEY27ClhYLZWcDOshTXj3L1w0qWnVh5/MyMe71VZ2QLvSQGTOfme6n0YrPROXpsB36xYgQv/FhN3RU/aF/z3zn4npYkSTdSl3Nmc95+AkiF81MU+c2x4S9cPz56i506hRurCnBMfmDtxofe7fVfGJtr71KQD1wt8KsL+w+f+3As+iRiWWb10AjqeF6V922/6NzQpxv2MUtdRC9JUU8mYgfe2394G6iAOI4tOfwPupgABib3dq7f15dMPv+NybHvo9/e6fac/diGzb/vfu1PZwBg/XE9yzXevrrzPz86dGzn0WxmitLaYLuPwUIYaxM2uyIVWZFSkq8nAjI0uH8UnP6fTx8f+FBYEEZqaJp0AkvjyphofP4UHlr3iNYmvsfrvzQfcOgAKDczbF0jw7bycL55ExJ0DUsQ+GCOHx3l+Ql7FqOdv5F1nI5UazmveohhE6BiIlsWAsulhrLWAVc+1+M9C9oZvGlq/HZsdhkTri+FUMt4PZeduCs4c0cHy63FsGUNo12RiqwYKdmAj9wPSAwnb5uZ2v+7RPz5DwRq3vcXbs95PpJqkbSBV5oXqjIfMJsZpqGOolelgWwQc9dCYq0stwEYGoMmAubTOXXZFFZPM00oCRYVEamCaBnQpMCPgqo2bUddUDQNVFAH5zgNhffJmWZCTeWQvBYc8nWsmDYXIYbK3pdOvfTC8cGXoO5ogoUUTXtlGqCF7H63B6d+abpWrjzKFamA2WIGHqZuYEIczmaOHx4fuZXFie8yBM4udUTrjqNSG8N4f9yxrnez03VORpYkddH6LO45q0mqBsBs3KpqGqDTQDGt9RTjnxZ5iTKtNNIXhmMTfO54UIu4QeSLLrveoYGZGmzR5LpxwmVEkeVhPmdEl10ymBiVQDOU2KwbSSGGjBdYMlaKPFEZBhV5C8g+agmDT1Zn4oC4wMCWchKWLkeN0MxhfzY71RsO7d/qcp+Tnt3FCdM3MsE4nGBtB7nOsjY4uNUKfmLppxmI1GCKo4IwJGn/k+YF2oTm6yXWUzTdTNHNKrOzcVrVFqkrmYFs1oguWzY1z2iqdWGqpMxZvoUr5dvIpAJmFXkryBBVyiCbN6unD2K8jMZ/4oQ/2HyEwFVWiMkxRYpZlVRcQy4Jhd3Y4HBu5GUFs8x4KmjmD9ndjmQzR+yUXGMTlGaGXe2jqDrRZiZTrSOcJkhSZiCng1kZbVZ2GQEaU26KAho9uzdfGY1kN1TGQUVOKTVTwZbf0Iyr6pvCOwkSv6DK9x5JMbQqDZRUMJPlaFQQojYDXx3jThznOhl2kwDaITHX+K9GlohLUvpINm2rHurgJ7ewzOoATdcKJ7B6blcgwB3nc8fGBSGLYcvXKcbLYloUxvbNTN0+JQphDKsY/CtSkSWBmZsg6LUwwOVZu42akNU6YxMvrCQSoq0qR6qThGZGP1nXeO25Hu+lCVlSzG4VKNTO4Wzmpbgs51WxnCTpWuNwbBRsWBVyIUlJYmKY54/ZqYfG+c000+4jSWZKEETasspB0ZnZ0ZxmL0OxxAosr1L0cuZiVJEqorGm9Gg2O/DRgSN/b8q0AmYVqUipYGb4ll3mD1z0zea27wr6zJl5hbhQpsGlqEuNSLqRopsziFmZwAjZw9B6xcfi8f81WJQdKKxjuQY3SdXm5Hl7eCokKJJpSY4cy2UnMBs/NVFv23rO0aFH7VDs+BIKoftyOvUH9E2PLluS/arUJUfqzk3ITUQrqyIVqchiwMxwdzjP4zu/hXO0JIAVEZblROXcmgkZutPaZsJGFCCViSB3iKgoxR+LRx7VBjg+J6KZARBbnO634Yo9RUJK5yCffQWxNsM51nK95CIIai0wOxQc0d4WiOMorEczyzRe5AtsqyYIt5em1U3HNU0WaaFaKHEUSRc6mKqnaBLQCO10TrgIkvtZKPiL51OJfusO6gVAXlnsus+KVKQCZrN2G/WzjWE2oQGe0TzqyWWrESAOMRsq2wA4sYam6f2h4D196RTaPIRQ8kR/7eS4TWqwbsV+VuKVdPrwXB13rnhIsqoV1Exem8kk7JgqmkQAVfhLn2lo/tIJxbEgQKMkSwxJkS+nEi/eMjH6vXmq9soUpK4b6yGNtZYLCYrMYA7js1DQRJS/dbs3Y4F3T566WAWdu0b//zYs/1ZnvXqe+YIH7sLm7s6Ezu/Dil/aVKiO1rLN/RTR6x9ZoD+NjV0W2sptoXvVgc2NWGG9R4XaYb2m0LnGsreyLNYnilAxpVUsW1PPMK1odo8E5oJmBZctWXZ8QiocCq8TFITQ96Ymvm3YvhRb+z+GbeQcZxB5gAKdcSSb+ROGzQe62TWZlL+N4dYZ7C2P2odFRRGb5nllhuflGUFASdKTaE1hURCSskyO5jIjfzd09IPjghC3MsNTRLqw+XHPti9w/gvY/GgWu7DiwguVKqguj9iU59frsQebu/bTCD90rIxlG0DUYyl/exH9udLCERl9t2v5wUyfDdzAOTY10kwzn8dVYblED6ujVBEE9p3J8RufSsZfIrTdmKyzkKorBwdEqp6mO+S8picMee2/WqjMtSzb7CAIVtHUukIbnSDjP9pImNATqSfKkpCpTo3U8Y2xkc8/n0wOEPquS6egJrC9SIAzP+yFFo4v12Jv696YO7DCkVj3lnmA+3VgiljqYBXrsZ4V+lzsKQegFQQzw09rLcttqKVpN4AZrytVsjXJxSdpoSRpm/3KHEmQaHH5rVMTX/76xOh3MH0j4vn1VNVBZaPDsdpLUlVZKEU2bzKsTroqeFISZ4b5XNCwQ1ltakje4XRtkbUdpcqiBqJJBT9JET8JTt/yg5mpn2sqMnaq2r/yqT92QRD9luNInQvoLxgj/M5AATXKtHXhCRXTTv3E9Xx7C5RtBmEEMFv16y7XAWQxIGKuo13Z1r1AraBvZWsH9D7aacr3QJ7ylro93hpTXla10Ti+d4E277UBtCVFuqUKANmJsD+nO1ybMWAWLoLAKbuNiDQ7V9kmAmgcRwXjA5n067dMTXzl9plJFQRwDThtGKQWGXaT09XV4XA26dsK08aSH1kBHQ8IUl8yPhiVpEQ+8yD6sxrUVFOcsyWxUAS8HpIkD6WTz1w/NnK9/vY4VRdSbrewHfMmKDtsHm4rI+szMZVyMzIj2un2POVb691nUuvKodpZy+4wHd9heRnszNOfK03F3K33434LI95ZdjDD9CUzLpKkOZIUXkmlDmZkKU6oO6Gh8aitW1RnHYEGRSUR7XRijvMvm0BCNrGhE7H/dTs9+tSO4WpcaGmM52dezKQOPh6N/qqfz0aJAkBmgAb6HMxm+/99fOQGXjPIkx7kOa8ohExzBMeQ7hfi8edTspwsxMzOdHk6nCSJNhAW8dk9PksCNsPBmIRrY6IUvu744CenBD5d7OzlW1S6LYCwF5uNamrE3D9gOQezUfV6izAad1tYdc8Cg8RvwxoH8tQF1TWMzQaJPLCMfWbk320CMCPW1w4bMF5pYkygdJnaV34wMwY7qGzidcODXzUfx/W5QkXf2RctG8wBvkmzQGbFiHyf88uFzLKzs4OGf5W8gG1N/f33yfgfUbLlmXpFF8Ag7INHX7uGwjFGsdjaLJ84lvd3BQ8QNO4i1ShvZEgSYwdTyeNm0D0FxU4l6sHmhmjebgNmvZbrDFVrDzYbqG8pM2EdeZ7FiKUuvTYq3h4T4OxeIqhtLwCkvSYwM/qxz1KflRwo0ryz15L2VF3QNQMZ4IOikH6DG4jri9hluYTwNvjsDuhmxFRMPExZyA7Wn82MLL36Wbt6ncpipxJFCrAOQy7HZnfl6bDJs6uAPWwpYmUHhivIDhv7HqrDI3o9SgHW7iKB1AB9s0reZ8NwVqqUbZtAosiTCMSQ8ib0e3EJLybhGohKi5jxUwNMGAnXkqoK47MqcGF0x3HSkkret8A6m1lZfjTPgH7AxNDysTczkKzR024bZmU3y2idAChWdUHXbc0DDujYNmx2AmJgAXa1WNlrM8B7LOC5w1KvlbypSle5gK2otZmy5vnwpu8VZVE/zRWx4mlfbumwsBm/bnPKx1Z6LNcOmNQRQ53aY8lvqXab7TYDy64dAybAQcD3Qhn7yVC97YA031Z+GLZy3THM7LosDJOojLWKvIGsrFR1dJcOGNstgFdONcWs2ubbFGUHNt95t3uJ5VrZ47YCg3kAs7fJ5Tu+EmQPNncmE8OWaPurgJlJjFj7FVmUGDYgIx0zAUEpssOUnzGDud+Ub7dlMPeVUBc7e411705jl3Qz89tj+jTy3GPD8JZTek4iK9tj6c/byvCM7LJ5qSxJXa6A2VxdVKlEpSg7wHVYBh9uSYE8TK6riPwvX2L9IqZ69VrqsMsEbgupskseiEWqw5G3kIpp7b8lz8guB5jh8w+oy35IAn/TER+1PoTuCHyZ3/+uLqezxWBpJ6NClLZM6q2qYu7NAyhWA3cXNmv4t9tD0di7sq/MAypiYSOGG4Rh9O+zAZNt2BvnGrHXUnZkhT8fZd2D1Oo7JWPzozKrv+khdww3CRQZCNeDGyrYXN8r9Ryfx7s1y+cms7nsqA6aZhcL3IhIocwa3NVyXS5XG0mQXDKVPAq/EZgeQ1EvTg0FhGnhzYwqyLi+F4Ee9dr4jvKUcLQN3Fz3Di2oBlyLAIsmSY4XxfQWztl6TW39JXsmR34yLYgJXMNgQi9bradethHU0egvK5kj9GuNuuCm8xVT3Yy+Rm0UXZyjnasOXLopnjjoJynpgWj4GdVpV8vHuCcoP9KUn4SWcinYid+t+Zdze4KKVORNLYaHu9Vj3wx02oqgWSAzAEY2AZl2PYzbhoaGD9M0XeWp8pzjdHCqirGa5ZrQDtybHa5OUwaSCchOhNupq6n9SFNT41dwgkCDUtTLkYzybI5hpu+Sfo7hnoGARMRmA+Nq56nrnRSlvbX1y60tLf+E8kjIYuY/p8d7DSBTTPkY9TTVWdbzt0MKWZlbF9nUv+a6YaY6YdBcD82yW1wE6XJgisNgtEbbjPMs5eP6fZFs8q+gWEVOKUGBH/Bqf+ACgiQ8M6HgfR6Xe3M2mx0BMHEwDBOQZTnB0nQbw7Lt4XD4fl4Qkm6Xa63H4zkrGo0+ns3lJgG5NjAMvRoGJNPc0LRLEISZSDh0V1IUsmtZrvXausYrxgVhpJVhPH/KpDAnqHK1dXUf4XlhcmJqcp8sSeIJuxVaGC5KcY/LtSngD1wD3xMOh+PMUDh0ZyKRONRQ3/AZSZKmoA5nhyLhuyanpvYDgF5VE6j+mCjyo+MTkzcFAoHLs9nccDAU2t/etuo/IrHIPQxFBbxV3svQmoJoLHKfKAgT9XUN/wJFT03F47+jUulj51d5zxoOTt+Xgzo4Hc7W5qamr3IssyYcid4zPTPzPSjnSzRF+QCsayRJzhwfPv4FQRQyZpYKdT6nrq72mkwmOxgKBu/2+rznJxLxFz3uqi3haOTBlqamr9E04z967Njnamtq3uetqjp3Jhx6IJ1MHZJkmQdEz4RlbQ9N0MuV5sbmf3S73WeFQqF7o/HY0y1NzZ+koA6SLCmDQ0O7/D7fuY0NjZ8KhcMPRmPR37Q0Nn2OIEgG+vUH8UT8T5VHvCKnipBrOztv8fv8f+1yOjf4qrwXZXN8f1tL6274/7xUKvUKDJ4vAnBtZVm22ev1XQSDd7Czo2MfjhFiU2Pj7lw2e6i9fdXNBE4wkNIet/tCUC2frg4ErozzfOZMgkz5GLb1XydG9h3LZScJHGfWr1t/HwrHD+Byrsvl3BqORB4iSdIBeCBAebscHLcFVNQ+qMe3EE7A9w0AaGdlMplDq1et+hYQFhG+bwJQ/DMAzsPrOjofiMVj98H3MwN+/9+IkjTaUFf/6Uwu+zKA2S1TU5PfhTaeg4AIAam/yveBVCb9B3Q9sJ/cWDi0by2Ge1YxXOPTqcQh1DEb1q29H1Teral0+kBjQ8ONoigMQZveD+DzXgDTUHXAf1UimXw2k83066xSBpBzrevsvDsO4Ajt2iKKUpYkCUdHe8d3pqen74TrrxYBPEfHx7/l8/rOraut/ftINPpreJlcgkBVoujmVTw/AEojfjSbHaqrrv5QbW3tlQBijwcC/vfmcrlQQ339lceHh2+E75dSJEnBtVePjY/dkkymDra3tt2AGCW8DWIAgOdBv/7qhhtuqDzlFTk11Mxqn//qSCTy5PT0zIMw+MLAHn7Lsdw7KZpqjsXjzwFwUKNj4///yLFjX6BIqrauuu4fcjl+MhgKPgaD7ABBUTXAKIJjE+N3HB8Z/hGARN9MMPgYChntIAjX08n4kRlgTDc2tX304irfmRzH1gOzqIHB93w8FntE4Hl1uzZggJKmo8lZtIRJlmRBFMXcyNjoXqjTQwCeHkR+BAGOjY5+DUAA+dc4HJyjE1glNjg0+PlQOPIIzbDrgsHgT1Eeq9tWfXd6ZuonqVS6D0ClHeqZSKdSY0DOqgBw/gAFxIE1PSrEYoeqacZ3lM+NegCZtlRVdeIM25yIx58aPD74RQAvgWHYTfApAzvsg3buhmvTcGqV1+t9G4DUu3VVkQZc80G9x/lc7qgsiRNqvCRZjCJ1EADbC4A0nM1mxggCR+CNiZIwmuNz/dDiDAA9B6xQame55ovcVe0ESXqQPgyAfTynbaAiAWseSqVTr6eSqQG4H34FRb5NZ1+BcyZJigTGKEZEXhiCfjoG9SErj3hFThkwQwyF47gGYCm1MHBCDXV1f5Phs8/AwJ2oqa5+j2rHqq29ormx8RoAGjGRSjxM0bSH5bgqlmGqJUWaJAm06kfbqxeAyq0aoQExPBTlPN9Tte5JUI/Csjj92fqGD7diOBXNZg86WXY1wzJNmWz2VWA7Z7e2tHzcZDtTjfloMKpWeBT7kNDmGND/IAyAEw7MxJtIJv43nUkPbjl9yyGo+8disegvorHYQQCdZ6Bd7aB+/QzyYmuraz4EqnIDXC1DviwcowEA+mtraj9GBwIXAvjFPh6oec/Xm9o+Fc/kRiLRyD1+f+Di00/b/AKAYAzy/B9omxdH0TRwgoU8CLSQC9jjTcD+UKw1DAAnOj0z/e8Bn387VN0FVVVYlq4+MnDs74AZngdq+U+hL688bePG/fFk4ql0NvMHVD4A41QynX5VEcWRoMCPn+FwtCQxxTENdQfmexjuwzWgNg/CS2QIVPNhZA5DTA5eNs9AOx88bdPGX4MKvGNicvJmAPf1bo/nnEQ88SSws67KI16RU0Vwhqb9Lc0tnwaw4KZnZvaBmrgxGAo9RcLA9VdVrQdV8AOgtsWA6IhT09N3g2r1ciOoOqB6/jmwo99EYrHH6mvrzoNB/DSAQ6ypofGS6eDMoz6fb2s2nR59P8M1nebxdPGKknoiFnvh8UTsEICht66m7nJQ3Wbg3F9yLNsIzMcPquLLwHTeAQzFAQzkdbfL1QXU6SACIVARq0HtPQzlvgOOPYfUXgDTJqjrwwBaTbU1NZcCmIwCY/yNLCsigHOng2VbAYSeRrYon9fb5XK5N8PgP8hxTFskGnsK8vQAyF06FY084c5kjl8WqDnvoVjk2TGeDyEwrQ5Ub+Mc3LpwOPzrdDo9BCrsXwLIQ7PS/VDPs1FfQNltJEE4QKV73OhTAFsfsK6Mou2Wrk5CqLOq2ibFDGJgqE/hGIAy6QEmFzYb7JEbC2KW+kYuNDoHyo3rkxnz7iFifPBbDthtBv53o3cKnB9FM58G461IRd7yYLbAcWXDuvV3TExO9CCVU3cLsHNHWEy5SpnboOT5vpgMcWV+HkXVWXeNkC3XaW4ZetikPHma641CHyH/E8x8zHSdYslbzpNfxTWjIqeM/J8AAwBLzOCwOLeiqwAAAABJRU5ErkJggg=='; alt="Company Logo">
+  </center></div> -->
+  <h1>Machine Installation/Commissioning Report</h1>
+  
+  <form id="report-form" onsubmit="submitForm(event)"  action="https://script.google.com/macros/s/AKfycbw7b-_js6MJRHqf15y5sAdLgMM7fHSl3s4xMEqMEBm9zoAW1pX-tMtsdNjcpE4DQ6K-GA/exec" >
+         <div id="token-number-container" style="position: fixed; top: 20px; right: 30px;">
+        <span id="token-number"></span>
+      </div>
+        
+
+<div class="report-details">
+           <table>
+      <tr>
+        <td><label for="customer-name"> Customer Name*:</label></td>
+        <td><input type="text" placeholder="Enter Customer Name*" id="customer-name" name="customer-name" required required size="60" ></td>
+        <td><label for="contact-person">Contact Person*:</label></td>
+        <td><input type="text" placeholder="Enter Contact Person*" id="contact-person" name="contact-person" required required size="60"></td>
+      </tr>
+      <tr>
+        <!-- <tr>              
+          <td colspan="2"><label for="Engineer-Name">Engineer Name*:</label></td>
+          <td colspan="2"><input type="text" placeholder="Enter Engineer Name*" id="Engineer-Name" name="Engineer-Name" required required size="100"></td>
+        </tr>
+          <tr>
+          <td colspan="2"><label for="City-Name">Address*:</label></td>
+          <td colspan="2"><input type="text" placeholder="Enter City Name*" id="City-Name" name="City-Name" required required size="150"></td>
+        </tr> -->
+        <tr>              
+          <td colspan="4"><label for="Engineer-Name">Engineer Name*:
+          <input type="text" placeholder="Enter Engineer Name*" id="Engineer-Name" name="Engineer-Name" required required size="100"></td>
+        </tr>
+          <!-- <tr>
+          <td colspan="4"><label for="City-Name">Address*:
+          <input type="text" placeholder="Enter Company  Address*" id="City-Name" name="City-Name" required required size="150"></td>
+        </tr> -->
+        <tr>
+          <td colspan="4">
+              <label for="City-Name">Address*:</label><br>
+              <textarea id="City-Name" name="City-Name" placeholder="Enter Company Address*" required rows="2" style="width: 100%;"></textarea>
+          </td>
+      </tr>
+        <td><label for="Start-date">Start Date*:</label></td>
+        <td><input type="date" id="Start-date" name="Start-date" required required size="20"></td>
+        <td><label for="End-date">End Date*:</label></td>
+        <td><input type="date" id="End-date" name="End-date" required required size="20"></td>
+      </tr>
+      <!-- Add this code within the <form> element, after the End Date input -->
+      <tr>
+        <td><label for="no-of-days">Number of Working Days*:</label></td>
+        <td><input type="text" placeholder="Enter Number of Working Days*" id="no-of-days" name="no-of-days" pattern="[0-9]*" required ></td>
+      </tr>
+
+      
+      <tr>
+        <td><label for="machine-model">Machine Model*:</label></td>
+        <td><input type="text" placeholder="Enter Machine-Model*" id="machine-model" name="machine-model" required required size="40"></td>
+        <td><label for="machine-Serial Number">Machine Serial Number*:</label></td>
+        <td><input type="text" placeholder="Enter Serial Number*" id="machine-Serial Number" name="machine-Serial Number" required ></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="text-align: center;"><label for="machine-type">Machine Type*:</label></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="text-align: center;">
+          <select id="machine-type" name="machine-type" required>
+            <option value="">Machine Type*</option>
+            <option value="Ecat sheet Cutting">Ecat sheet Cutting</option>
+            <option value="Beckhoff sheet Cutting">Beckhoff sheet Cutting</option>
+            <option value="Fanuc sheet Cutting">Fanuc sheet Cutting</option>
+            <option value="3 Chuck tube Cutting">3 Chuck tube Cutting</option>
+            <option value="2 Chuck tube Cutting">2 Chuck tube Cutting</option>
+            <option value="Sheet + Tube Cutting Machine">Sheet + Tube Cutting Machine</option>
+            <option value="Welding Machine">Welding Machine</option>
+            <option value="Marking Machine">Marking Machine</option>
+            <option value="Laser Cutting">Laser Cutting</option>
+            <option value="Ingraver Machine">Ingraver Machine</option>
+            <option value="Router Machine">Router Machine</option>
+            <option value="Robot Cutting / Welding">Robot Cutting / Welding</option>
+            <option value="SPM">SPM</option>
+            <option value="Other">Other</option>
+            <!-- Add more options as needed -->
+          </select>
+          
+        </td>
+      </tr>
+    </table>
+    <br>
+  </div>
+  <div class="report-table">
+    
+
+  </div>
+      <table>
+      <!-- Machine Details Form content from the second snippet -->
+      
+      <div class="table">
+        <div class="row header">
+          <div class="cell">Machine Function</div>
+          <div class="cell">WORKING</div>
+          <div class="cell">Remark (Model No. - Serial No.)</div>
+          </div>
+        <div class="row">
+          <div class="cell">XYZ_axis</div>
+          <div class="cell"><input type="text" name="xyz_axis" placeholder="Enter working status"></div>
+          <div class="cell"><input type="text" name="xyz_axis"placeholder="Enter remark"></div>
+        </div>
+        <div class="row">
+          <div class="cell">Pallet_Changer</div>
+          <div class="cell"><input type="text" name="pallet_changer" placeholder="Enter working status"></div>
+          <div class="cell"><input type="text" name="pallet_changer"placeholder="Enter remark"></div>
+        </div>
+        <div class="row">
+          <div class="cell">CNC</div>
+          <div class="cell"><input type="text" name="CNC" placeholder="Enter working status"></div>
+          <div class="cell"><input type="text" name="CNC"placeholder="Enter remark"></div>
+        </div>
+        <div class="row">
+          <div class="cell">Laser</div>
+          <div class="cell">
+              <input type="text" name="Laser" placeholder="Enter working status">
+          </div>
+          <div class="cell">
+              <input type="text" name="Laser_remark_model" placeholder="Model No.">
+              <input type="text" name="Laser_remark_serial" placeholder="Serial No.">
+          </div>
+      </div>
+        <div class="row">
+          <div class="cell">Chiller</div>
+          <div class="cell"><input type="text" name="Chiller" placeholder="Enter working status">
+          </div>
+          <div class="cell">
+            <input type="text" name="Chiller"placeholder="Model No.">
+            <input type="text" name="Chiller"placeholder="Serial No."></div>
+        </div>
+        <div class="row">
+          <div class="cell">Cutting_Head</div>
+          <div class="cell"><input type="text" name="Cutting_Head" placeholder="Enter working status"></div>
+          <div class="cell">
+            <input type="text" name="Cutting_Head"placeholder="Model No.">
+            <input type="text" name="Chiller"placeholder="Serial No."></div>
+        </div>
+        <div class="row">
+          <div class="cell">Dust Collector</div>
+          <div class="cell"><input type="text" name="Dust Collector" placeholder="Enter working status"></div>
+          <div class="cell">
+            <input type="text" name="Dust Collector"placeholder="Model No.">
+            <input type="text" name="Dust Collector"placeholder="Serial No."></div>
+        </div>
+        <div class="row">
+          <div class="cell">Slat Conveyer</div>
+          <div class="cell"><input type="text" name="Slat Conveyer" placeholder="Enter working status"></div>
+          <div class="cell"><input type="text" name="Slat Conveyer"placeholder="Enter remark"></div>
+        </div>
+        <div class="row">
+          <div class="cell">Panel AC</div>
+          <div class="cell"><input type="text" name="Panel AC" placeholder="Enter working status"></div>
+          <div class="cell"><input type="text" name="Panel AC"placeholder="Enter remark"></div>
+        </div>
+        <div class="row">
+          <div class="cell">Lubrication System</div>
+          <div class="cell"><input type="text" name="Lubrication System" placeholder="Enter working status"></div>
+          <div class="cell"><input type="text" name="Lubrication System"placeholder="Enter remark"></div>
+        </div>
+        <div class="row">
+          <div class="cell">Exhaust System</div>
+          <div class="cell"><input type="text" name="Exhaust System" placeholder="Enter working status"></div>
+          <div class="cell"><input type="text" name="Exhaust System"placeholder="Enter remark"></div>
+        </div>
+        <div class="row">
+          <div class="cell">Tool Kit</div>
+          <div class="cell"><input type="text" name="Toll Kit" placeholder="Enter working status"></div>
+          <div class="cell"><input type="text" name="Toll Kit"placeholder="Enter remark"></div>
+        </div> 
+        <!-- Add more rows as needed -->
+      </tbody>
+      </table>
+    <br>
+       <!-- Power Supply Details Form -->
+       <div class="table">
+        <div class="row header">
+          <div class="cell">Power Supply<span class="mandatory"></span>*</div>
+          <div class="cell">Standard value<span class="mandatory"></span>*</div>
+          <div class="cell">Actual Readings<span class="mandatory"></span>*</div>
+          <div class="cell">Remarks<span class="mandatory"></span>*</div>
+        </div>
+        <div class="row">
+          <div class="cell">Phase to Phase<span class="mandatory"></span>*</div>
+          <div class="cell">400/415VAC<span class="mandatory"></span>*</div>
+          <div class="cell"><input type="text" name="phaseToPhase" placeholder="Actual Readings*" required></div>
+          <div class="cell"><input type="text" name="phaseToPhase" placeholder="Enter remark*" required></div>
+        </div>
+        <div class="row">
+          <div class="cell">Phase to Neutral<span class="mandatory"></span>*</div>
+          <div class="cell">220/240VAC<span class="mandatory"></span>*</div>
+          <div class="cell"><input type="text" name="phaseToNeutral" placeholder="Actual Readings*" required></div>
+          <div class="cell"><input type="text" name="phaseToNeutral" placeholder="Enter remark*" required></div>
+        </div>
+        <div class="row">
+          <div class="cell">Phase to Earth<span class="mandatory"></span>*</div>
+          <div class="cell">220/240VAC<span class="mandatory"></span>*</div>
+          <div class="cell"><input type="text" name="phaseToEarth" placeholder="Actual Readings*" required></div>
+          <div class="cell"><input type="text" name="phaseToEarth" placeholder="Enter remark*" required></div>
+        </div>
+        <div class="row">
+          <div class="cell">Neutral to Earth<span class="mandatory"></span>*</div>
+          <div class="cell">Less than 1 Volts<span class="mandatory"></span>*</div>
+          <div class="cell"><input type="text" name="neutralToEarth" placeholder="Actual Readings*" required></div>
+          <div class="cell"><input type="text" name="neutralToEarth" placeholder="Enter remark*" required></div>
+        </div>
+        <div class="row">
+          <div class="cell">Earth Resistance<span class="mandatory"></span>*</div>
+          <div class="cell">Less than 3 ohms<span class="mandatory"></span>*</div>
+          <div class="cell"><input type="text" name="earthResistance" placeholder="Actual Readings*" required></div>
+          <div class="cell"><input type="text" name="earthResistance" placeholder="Enter remark*" required></div>
+        </div>
+      </div>
+            
+    
+<table>
+    <tr>
+      <th>General Capabilities</th>
+      <th>Options</th>
+      <th>Remarks</th>
+    </tr>
+    <tr>
+      <td>Max Cutting Length</td>
+      <td>As per Machine bed size</td>
+      <td><input type="text" name="As per Machine bed size"placeholder="Enter remark"></td>
+    </tr>
+    <tr>
+      <td>Max Cutting Width</td>
+      <td>As per Machine bed size</td>
+      <td><input type="text" name="As per Machine bed size"placeholder="Enter remark"></td>
+    </tr>
+    <tr>
+      <td>Cutting Tolerance</td>
+      <td>± 0.1 mm</td>
+      <td><input type="text" name="Cutting Tolerance"placeholder="Enter remark"></td>
+    </tr>
+    
+    <tr>
+      <td>Repeatability</td>      
+      <td>0.05 mm (MAX)</td>
+      <td><input type="text" name="Repeatability"placeholder="Enter remark"></td>
+    </tr>
+    <tr>
+      <td>Circular Accuracy</td>      
+      <td>Within 0.1mm</td>
+      <td><input type="text" name="Curcular Accuracy"placeholder="Enter remark"></td>
+    </tr>
+    <tr>
+      <td>Diagonal</td>
+      <td>0.5mm (1500x3000mm)</td>
+      <td><input type="text" name="Diagonal"placeholder="Enter remark"></td>
+    </tr>
+      </div>
+      <div class="row">
+        <!-- Power Supply Details content from the third snippet -->
+      </div>
+    </div>
+    <br>
+     
+    <!-- <h2>Machine Specifications</h2> -->
+    <table>
+    <table>
+  <tr>
+    <th>Parameter</th>
+    <th>Range/Description</th>
+    <th>Remark</th>
+  </tr>
+  <tr>
+    <td>Chiller Temperature</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>a) Laser Source cooling water Temp</td>
+    <td>22-25</td>
+    <td><input type="text" name="laser_temp_remark" placeholder="Enter remark"></td>
+  </tr>
+  <tr>
+    <td>b) Cutting Head Cooling water Temp</td>
+    <td>28-32</td>
+    <td><input type="text" name="cutting_head_temp_remark" placeholder="Enter remark"></td>
+  </tr>
+  <tr>
+    <td>c)Chiller Temperature Alarm</td>
+    <td>20 Min, 35 Max</td>
+    <td><input type="text" name="Temperature Alarm" placeholder="Enter remark"></td>
+  </tr>
+  <tr>
+    <td>File Format</td>
+    <td>DXF/NC/CNC File</td>
+    <td><input type="text" name="cutting_head_temp_remark" placeholder="Enter remark"></td>
+  </tr>
+  <tr>
+    <td>Safety Interlock</td>
+    <td></td>
+    <td><input type="text" name="Safety Interlock" placeholder="Enter remark"></td>
+  </tr>
+    <tr>
+    <td>- Head Temp. Interlock</td>
+    <td></td>
+    <td><input type="text" name="Head Temp. Interlock" placeholder="Enter remark"></td>
+  </tr>
+  <tr>
+    <td>- Chiller Interlock</td>
+    <td></td>
+    <td><input type="text" name="Chiller Interlock" placeholder="Enter remark"></td>
+  </tr>
+  <tr>
+    <td>- Cutting Gas Interlock</td>
+    <td></td>
+    <td><input type="text" name="Cutting Gas Interlock" placeholder="Enter remark"></td>
+  </tr>
+  <!-- ... (other rows) ... -->
+  
+</table><br>
+
+<table id="thickness-table">
+  <thead>
+    <tr>
+      <th>Cutting Material</th>
+      <th>Thickness (mm)</th>
+      <th>Result</th>
+      <th>Remark</th>
+    </tr>
+  </thead>
+  <tbody id="thickness-table-body">
+    <!-- Default row without trials column -->
+    <tr>
+      <td>
+        <select name="material">
+          
+        </select>
+      </td>
+      <td><input type="text" name="thickness-1" placeholder="Enter Thickness"> </td>
+      <td>
+        <select name="result-1">
+          <option value="OK">OK</option>
+          <option value="Not OK">Not OK</option>
+          <!-- Add more options as needed -->
+        </select>
+      </td>
+      <td><input type="text" name="remark-1" placeholder="Enter Remark"></td>
+    </tr>
+  </tbody>
+</table><br>
+<button type="button" onclick="addRow()" id="add-thickness-button" class="add-buttons">Add Thickness</button>
+  </table><br><br>
+
+<button type="button" onclick="addOtherRow()" style="padding: 10px 20px; background-color: #3498db; color: #fff; border: none; border-radius: 5px; cursor: pointer;" id="addOtherButton" class="add-buttons-hidden">Add Other</button>
+
+
+
+<table id="other-table">
+  <!-- Existing table content -->
+</table>
+
+<table>
+  
+    <td>Engineer Sign:</td>
+    <td><input type="text" name="engineer_sign" ></td>
+  </tr>
+  <tr>
+    <td>Contact Person Sign:</td>
+    <td><input type="text" name="contact_person_sign" ></td>
+  </tr>
+     <td>Contact Person Comment:</td>
+    <td colspan="2"><textarea name="comments"  rows="10" cols="90"></textarea></td>
+  </tr>
+</table>
+ 
+
+    <!-- Submit button for the entire form -->
+    <br>
+    
+    
+           <button class="submit-btn" id="submit-btn"><i class="material-icons">send</i> Submit</button>
+       <button type="button" onclick="goToDashboard()" id="dashboard-btn" class="dashboard-btn"><i class="material-icons">dashboard</i> Go to Dashboard</button>
+    <!-- </div>
+     -->
+     
+
+      <script src="./installation.js"></script>
+</body>
+</html>

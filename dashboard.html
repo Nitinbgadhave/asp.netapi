@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Include Material Icons stylesheet -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2; /* Light gray background */
+    }
+
+    .header-container {
+      background-color: #68dbd1; /* Dark background for the header */
+      padding: 10px;
+      text-align: center;
+    }
+
+    .logo-container img {
+      width: 350px; /* Adjust the width as needed */
+    }
+
+    .choose-menu-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .folder-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .folder {
+      background-color: #007bff; /* Blue folders */
+      padding: 20px;
+      margin: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: white;
+      transition: transform 0.3s ease;
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .folder:hover {
+      transform: translateY(-5px);
+    }
+
+    .folder .icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .logout-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .logout-btn {
+      background-color: #ff0000;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header-container">
+    <div class="logo-container">
+      <img src="./sil.png" alt="Company Logo">
+    </div>
+    <h1 style="color: rgb(15, 1, 1);">Choose Folder</h1>
+  </div>
+
+  <div class="choose-menu-container">
+    <div class="folder-container">
+      <a href="https://drive.google.com/drive/folders/1g4fDuGJ-lQUvghAa2WGubJoJHLlB7eHc?usp=drive_link"
+        class="folder">
+        <span class="material-icons icon">folder</span>
+        Tubecutter
+      </a>
+      <a href="https://drive.google.com/drive/folders/1DX-_JvEQKreOM0zjcXSGgV7b0OmlPhge?usp=drive_link"
+        class="folder">
+        <span class="material-icons icon">folder</span>
+        Fanuc
+      </a>
+      <a href="https://drive.google.com/drive/folders/1OO2rlclGo6QqDX_eKOAI2JSe4B5dCOts?usp=drive_link"
+        class="folder">
+        <span class="material-icons icon">folder</span>
+        Eathergather
+      </a>
+      <a href="https://drive.google.com/drive/folders/1yj2hjT_DOJPtxjfO9mZdiYgDQ5v0l4Z7?usp=drive_link"
+        class="folder">
+        <span class="material-icons icon">folder</span>
+        Backhoff
+      </a>
+      <a href="https://drive.google.com/drive/folders/1yj2hjT_DOJPtxjfO9mZdiYgDQ5v0l4Z7?usp=drive_link"
+        class="folder">
+        <span class="material-icons icon">folder</span>
+        Laser
+      </a>
+      <a href="https://drive.google.com/drive/folders/1yj2hjT_DOJPtxjfO9mZdiYgDQ5v0l4Z7?usp=drive_link"
+        class="folder">
+        <span class="material-icons icon">folder</span>
+        Software
+      </a>
+    </div>
+
+    <div class="logout-container">
+      <button class="logout-btn" onclick="confirmLogout()">
+        <span class="material-icons">exit_to_app</span>
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function confirmLogout() {
+      var confirmLogout = confirm("Are you sure you want to logout?");
+      if (confirmLogout) {
+        alert('Logout successful...');
+        window.location.href = './user.html';
+      } else {
+        alert('Logout canceled.');
+      }
+    }
+  </script>
+</body>
+
+</html>

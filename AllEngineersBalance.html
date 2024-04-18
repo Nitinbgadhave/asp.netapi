@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Engineer Balances</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            margin: 5px;
+            font-size: 16px; /* Increase font size */
+            padding: 10px 20px; /* Increase padding */
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">All Engineer's Balance</h1>
+    <div id="engineerBalances"></div>
+    
+    <div class="button-container">
+        <button id="exportExcelBtn">Export to Excel</button>
+        <button id="exportPdfBtn">Export to PDF</button>
+        <button id="backButton" onclick="goBack()"><i class="material-icons"></i>Go To Dashboard</button>
+
+    </div>
+
+    <script>
+
+        // Go Back
+        function goBack() {
+        window.history.back();
+    }
+    //all engineers history
+        document.addEventListener('DOMContentLoaded', () => {
+            const engineerBalances = JSON.parse(localStorage.getItem('engineerBalances'));
+            if (Array.isArray(engineerBalances)) {
+                const engineerBalancesHtml = engineerBalances.map(engineer => `<tr><td>${engineer.employeeID}</td><td>${engineer.employeeName}</td><td>${engineer.balance}</td></tr>`).join('');
+                document.getElementById('engineerBalances').innerHTML = `<table><tr><th>Employee ID</th><th>Employee Name</th><th>Available Balance</th></tr>${engineerBalancesHtml}</table>`;
+            } else {
+                document.getElementById('engineerBalances').innerHTML = 'No engineer balances found.';
+            }
+        });
+
+        document.getElementById('exportExcelBtn').addEventListener('click', () => {
+            const table = document.querySelector('table');
+            const tableData = Array.from(table.querySelectorAll('tr')).map(row => Array.from(row.querySelectorAll('th, td')).map(cell => cell.textContent));
+            const headers = tableData[0];
+            const rows = tableData.slice(1);
+
+            const data = [headers, ...rows];
+
+            const sheet = XLSX.utils.aoa_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, sheet, 'Sheet1');
+            XLSX.writeFile(workbook, 'engineer_balances.xlsx');
+        });
+
+        document.getElementById('exportPdfBtn').addEventListener('click', () => {
+            const element = document.getElementById('engineerBalances');
+            html2pdf(element);
+        });
+    </script>
+</body>
+</html>

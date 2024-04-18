@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Services Engineer Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   
+    <link rel="stylesheet" href="./Daily Work Report.css">
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <img src="./sil.png" alt="Company Logo">
+        </header>
+        <Center><h2>Daily Work Report</h2></Center>
+                <form method="POST"  action="https://script.google.com/macros/s/AKfycbzwFNBc7kA5GcTgLrrHixUwdmVPsU0Ng4dpQRC_QA1KX6jUtP8ZFdTdhsq6cTNEWw/exec">  
+                    <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbzWMQniHwTWk6FCYwojr06H1hRqfrN4Fi18gXnaYfp00lgY6MEZL44qXi6BYQz5_Ise/exec"> -->
+                        <div class="form-group">
+                            <label for="EmpID">Emp ID<span class="mandatory"></span>:</label>
+                            <input type="text" id="EmpID" name="EmpID" pattern="[0-9]+" title="Please enter only numbers" required>
+                        </div>                    
+                        <div class="form-group">
+                <label for="Engineer Name">Engineer Name<span class="mandatory"></span>:</label>
+                <input type="text" id="Engineer Name" name="Engineer Name" required readonly>
+            </div>
+            <div class="form-group">
+                <label for="Company Name">Company Name<span class="mandatory"></span>:</label>
+                <input type="text" id="Company Name" name="Company Name" required>
+            </div>
+            <div class="form-group">
+                <label for="Select Machine Type">Select Machine Type<span class="mandatory"></span>:</label>
+                <select id="Select Machine Type" name="Select Machine Type" onchange="showMachineCodeInput()" required>
+                    <option value="">Select Machine Type</option>
+                    <option value="Ecat sheet Cutting">Ecat sheet Cutting</option>
+                    <option value="Backhoff sheet Cutting">Backhoff sheet Cutting</option>
+                    <option value="Fanuc sheet Cutting">Fanuc sheet Cutting</option>
+                    <option value="3 Chuck tube Cutting">3 Chuck tube Cutting</option>
+                    <option value="2 Chuck tube Cutting">2 Chuck tube Cutting</option>
+                    <option value="Sheet + Tube Cutting Machine">Sheet + Tube Cutting Machine</option>
+                    <option value="Welding Machine">Welding Machine</option>
+                    <option value="Marking Machine">Marking Machine</option>
+                    <option value="Laser Cutting">Laser Cutting</option>
+                    <option value="Ingraver Machine">Ingraver Machine</option>
+                    <option value="Router Machine">Router Machine</option>
+                    <option value="Robot Cutting / Welding">Robot Cutting / Welding</option>
+                    <option value="SPM">SPM</option>
+                    <option value="Other">Other</option>
+                    <!-- Add more machine types as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ReportDate">Report Date<span class="mandatory"></span>:</label>
+                <input type="date" id="ReportDate" name="ReportDate" readonly>
+            </div>
+             <div class="form-group">
+                <label for="In-Time">In Time<span class="mandatory">*</span>:</label>
+                <input type="time" id="In-Time" name="In-Time" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="Out-Time">Out Time<span class="mandatory">*</span>:</label>
+                <input type="time" id="Out-Time" name="Out-Time" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="Working-Hours">Working Hours:</label>
+                <input type="text" id="Working-Hours" name="Working-Hours" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="Work Activity">Work Activity<span class="mandatory"></span>:</label>
+                <textarea id="Work Activity" name="Work Activity" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="Customer Remark">Customer Remark:</label>
+                <textarea id="Customer Remark" name="Customer Remark" rows="4" ></textarea>
+            </div>
+                    
+            <div class="form-group">
+                <label for="Customer Name Seal & Sign">Customer Name Seal & Sign:</label>
+                <textarea id="Customer Name Seal & Sign" name="Customer Name Seal & Sign" rows="4" ></textarea>
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" id="submitButton" style="color: #ffffff; background-color: #4CAF50; padding: 10px 20px; font-size: 16px; float: left;">
+                    <i class="material-icons">send</i> Submit
+                </button>
+                <a href="./select.html" id="dashboardLink" style="color: #ffffff; background-color: #d9534f; padding: 10px 20px; font-size: 16px; text-decoration: none; margin-left: 10px; float: right;">
+                    <i class="material-icons">dashboard</i> Go To Dashboard
+                </a>
+                <div style="clear: both;"></div> <!-- Add a clearing element to prevent content overlap -->
+            
+                
+
+        </form>
+    </div>
+ 
+
+    <script src="./Daily Work Report.js"></script>
+</body>
+</html>
+

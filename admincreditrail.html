@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fetch Data and Populate Form</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .col-md-6 {
+            width: 50%;
+        }
+
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .material-icons {
+            vertical-align: middle;
+        }
+
+        /* transaction table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Tranasction highlight*/
+        .highlight-green {
+            background-color: lightgreen;
+        }
+
+        /* Balance highlight*/
+        .highlight-yellow {
+            background-color: yellow;
+            padding: 5px;
+            display: inline-block; /* Ensures the background color only covers the content */
+        }
+        #nameList {
+                border: 1px solid #ccc;
+                padding: 5px;
+                max-height: 200px;
+                overflow-y: auto;
+            }
+    
+            #nameList div {
+                cursor: pointer;
+                padding: 3px;
+            }
+            
+            
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="float: left; width: 25%; margin-right: 100px;">
+            <div style="border: 1px solid #ccc; padding: 20px;">
+                <center><h1>Admin Credit</h1></center>
+                <!-- Admin Credit form fields -->
+                <label for="name">Name<span style="color: red;">*</span>:</label>
+                <input type="text" id="name" name="name" required>
+                <button id="searchBtn">
+                    <span class="material-icons"></span>Search
+                </button>
+
+                <div id="nameList"></div>
+
+                <form id="addRecordForm">
+                    <label for="employeeId">Employee ID<span style="color: red;">*</span>:</label>
+                    <input type="number" id="employeeId" name="employeeId" readonly><br>
+                    <label for="EmployeeName">Engineer Name<span style="color: red;">*</span>:</label>
+                    <input type="text" id="EmployeeName" name="EmployeeName" readonly><br>
+                    <!-- <label for="note">Description<span style="color: red;">*</span>:</label>
+                    <input type="text" id="note" name="note" required><br> -->
+                    <div class="form-group" style="padding-bottom: 20px;">
+                        <label for="note">Description<span style="color: red;">*</span>:</label>
+                        <textarea id="note" name="note" style="width: 97%; height: 100px;" required></textarea>
+                    </div>
+                    <label for="creditTransaction">Credit Transaction<span style="color: red;">*</span>:</label>
+                    <input type="text" id="creditTransaction" name="creditTransaction" required>
+                    <button id="setCreditButton">
+                        <span class="material-icons"></span> Credit
+                    </button>
+                    
+                    <span style="margin: 0 40px;"></span>
+                    <button id="allEngineerHistoryButton">All Engineer Transaction History</button><br><br>
+                    <button id="backButton" onclick="goBack()"><i class="material-icons">arrow_back</i>Go Back</button>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6" style="float: right; width: 50%; margin-left: 10px;">
+            <div style="border: 1px solid #ccc; padding: 20px;">
+                <h1>Previous Transactions Details</h1>
+                <div id="balance"></div>
+                <table id="transactions-table">
+                    <!-- Previous Transactions table -->
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Visit Date</th>
+                        <th>Reference Number</th>
+                        <th>Credit</th>
+                        <th>Debit</th>
+                        <th>Balance</th>
+                    </tr>
+                    </thead>
+                    <tbody id="transactions-body">
+                    </tbody>
+                </table>
+                <label for="startDate"><b>Start Date:</b></label>
+                <input type="date" id="startDate" name="startDate">
+                <br>
+                <label for="endDate"><b>End Date:</b></label>
+                <input type="date" id="endDate" name="endDate">
+                <br><br>
+                
+                <button id="filterButton">Filter</button>
+                <button id="exportPDFButton">Export as PDF</button>
+                <button id="exportXLSXButton">Export as XLSX</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+document.getElementById("allEngineerHistoryButton").addEventListener("click", function() {
+    window.open("D:/Projects/Sil_Service_Form/Final pages/New Updates in Project/API & Database coonection with HTML/CreditAndDebit - Copy/HTML/Adminreport.html", "_blank");
+});
+
+// go back button
+function goBack() {
+    window.history.back();
+}
+
+</script>
+
+<script>
+
+document.getElementById('searchBtn').addEventListener('click', function () {
+    var name = document.getElementById('name').value;
+    if (name.length >= 3) { // Minimum characters required to start searching
+        fetch(`http://localhost:5246/api/CDTransactions/googlesheet/${name}`)
+            .then(response => response.json())
+            .then(data => {
+                var nameList = document.getElementById('nameList');
+                nameList.innerHTML = '';
+                if (data.length === 0) {
+                    alert('No data found for the entered name.'); // Display error message in a popup window
+                } else {
+                    data.forEach(function (employee) {
+                        var option = document.createElement('div');
+                        option.textContent = `(${employee.empID})${employee.firstName} ${employee.lastName}`; // Display the full name
+                        option.addEventListener('click', function () {
+                            var fullName = `${employee.firstName} ${employee.lastName}`;
+                            document.getElementById('EmployeeName').value = fullName;
+                            document.getElementById('employeeId').value = employee.empID;
+                            localStorage.setItem('EmployeeName', fullName); // Store the EmployeeName in local storage
+                            // Fill other form fields as needed
+                            nameList.innerHTML = '';
+                            renderTransactions(employee.empID, fullName); // Call renderTransactions with the selected employee ID and name
+                        });
+                        nameList.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => {
+                var nameList = document.getElementById('nameList');
+                nameList.innerHTML = 'Error fetching data. Please try again later.';
+            });
+    }
+});
+
+
+async function fetchTransactionsByEmployee(employeeId, startDate, endDate) {
+    let url = `https://localhost:7174/api/CDTransactions/TransactionHistory/${employeeId}`;
+    if (startDate && endDate) {
+        url += `?startDate=${startDate}&endDate=${endDate}`;
+    }
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
+document.getElementById('filterButton').addEventListener('click', function () {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const employeeId = document.getElementById('employeeId').value;
+
+    if (startDate && endDate) {
+        renderTransactions(employeeId, startDate, endDate);
+    } else {
+        alert('Please select both start and end dates.');
+    }
+});
+
+
+async function fetchTransactionsByEmployee(employeeId, startDate, endDate) {
+    let url = `https://localhost:7174/api/CDTransactions/TransactionHistory/${employeeId}`;
+    if (startDate && endDate) {
+        url += `?startDate=${startDate}&endDate=${endDate}`;
+    }
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
+document.getElementById('setCreditButton').addEventListener('click', async function (event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    var employeeId = document.getElementById('employeeId').value;
+    var employeeName = document.getElementById('EmployeeName').value;
+    var note = document.getElementById('note').value;
+    var creditTransaction = document.getElementById('creditTransaction').value;
+
+    if (!employeeId || !employeeName || !note || !creditTransaction) {
+        alert('Please fill out all required fields.'); // Display an alert if any required field is empty
+        return;
+    }
+
+    // Create a JSON object with the form data
+    var formData = {
+        EmployeeID: employeeId,
+        EmployeeName: employeeName,
+        Notes: note,
+        CreditTransaction: creditTransaction,
+    };
+
+    // Send a POST request to your API endpoint
+    fetch('https://localhost:7174/api/CDTransactions/AddTransaction', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // Parse the JSON response
+            } else {
+                throw new Error('Failed to save record');
+            }
+        })
+        .then(async data => {
+            alert('Record saved successfully. Reference Number: ' + data.referenceNumber);
+            var addRecordForm1 = document.getElementById('addRecordForm'); // Reset the form
+            addRecordForm1.reset();
+
+            // Update transaction history
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            await renderTransactions(employeeId, startDate, endDate);
+        })
+        .catch(error => {
+            alert('Error: ' + error.message);
+        });
+});
+
+async function renderTransactions(employeeId, startDate, endDate) {
+    const data = await fetchTransactionsByEmployee(employeeId, startDate, endDate);
+    const transactions = data.transactions;
+    let totalBalance = data.balance || 0;
+    const employeeName = localStorage.getItem('EmployeeName') || '';
+
+    const balanceDiv = document.getElementById("balance");
+    balanceDiv.innerHTML = `<div style="text-align: center; margin-bottom: 10px;"> <strong>Engineer Name:</strong> <strong>${employeeName}</strong> <br><br> <strong>Employee ID:</strong> <strong>${employeeId}</strong></div>
+                     <div style="text-align: right;"><span class="highlight-yellow">Total Balance: ${totalBalance}</span></div>`;
+
+    balanceDiv.style.textAlign = "right";
+
+    const tableBody = document.getElementById("transactions-body");
+    tableBody.innerHTML = "";
+
+    transactions.forEach((transaction, index) => {
+        const row = document.createElement("tr");
+        const credit = transaction.creditTransaction || 0;
+        const debit = transaction.debitTransaction || 0;
+        let balance = transaction.currentBalance || 0;
+
+        // Check if the transaction is a credit transaction and if visitDate is minimum value
+        if (credit > 0 && new Date(transaction.visitDate).getTime() === new Date(0).getTime()) {
+            return; // Skip this row if it's a credit transaction with a minimum visitDate
+        }
+
+        row.innerHTML = `
+        <td>${new Date(transaction.date).toLocaleDateString('en-GB')}</td>
+            <td>${transaction.notes}</td>
+            <td>${credit > 0 ? '' : new Date(transaction.visitDate).toLocaleDateString('en-GB')}</td>
+            <td>${transaction.referenceNumber}</td>
+            <td>${credit}</td>
+            <td>${debit}</td>
+            <td>${balance}</td>
+        `;
+
+        if (index === 0) {
+            row.classList.add("highlight-green");
+        }
+
+        tableBody.appendChild(row);
+    });
+}
+
+
+
+
+document.getElementById('exportPDFButton').addEventListener('click', function () {
+    const engineerName = localStorage.getItem('EmployeeName') || '';
+    const employeeId = document.getElementById('employeeId').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const totalBalance = document.querySelector('.highlight-yellow').textContent.split(': ')[1];
+
+    const content = `
+        <strong>
+            <div style="text-align: center;">
+                <h1>Account Statement</h1>
+                <span>Engineer Name: ${engineerName}</span><br><br>
+                <span>Employee ID: ${employeeId}</span><br><br>
+                <span>Account Statement: From ${startDate} To ${endDate}</span><br><br>
+                <span>Inhand Balance: ${totalBalance}</span>
+            </div>
+        </strong>
+        <br><br>
+        ${document.getElementById('transactions-table').outerHTML}
+    `;
+
+    const fileName = `${engineerName.replace(' ', '_')}_${employeeId}.pdf`;
+
+    const options = {
+        filename: fileName,
+        jsPDF: { format: 'a4' },
+        html2canvas: { scale: 2 },
+        margin: [10, 10, 10, 10], // top, left, bottom, right
+        pagebreak: { mode: ['css', 'legacy'] }
+    };
+
+    html2pdf().set(options).from(content).toPdf().get('pdf').then(function (pdf) {
+        pdf.save(fileName);
+    });
+});
+
+
+
+document.getElementById('exportXLSXButton').addEventListener('click', function () {
+    const engineerName = localStorage.getItem('EmployeeName') || '';
+    const employeeId = document.getElementById('employeeId').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const totalBalance = document.querySelector('.highlight-yellow').textContent.split(': ')[1];
+
+    const data = [
+        ['Account Statement'],
+        ['Engineer Name:', engineerName],
+        ['Employee ID:', employeeId],
+        ['Account Statement:', `From ${startDate} To ${endDate}`],
+        ['Inhand Balance:', totalBalance],
+        [],
+        ['Date', 'Notes', 'Visit Date', 'Reference Number', 'Credit', 'Debit', 'Balance']
+    ];
+ 
+    const table = document.getElementById('transactions-table');
+    const rows = table.querySelectorAll('tr');
+    rows.forEach(row => {
+        const rowData = [];
+        row.querySelectorAll('td').forEach(cell => {
+            rowData.push(cell.textContent);
+        });
+        data.push(rowData);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    const fileName = `${engineerName.replace(' ', '_')}_${employeeId}.xlsx`;
+
+    XLSX.writeFile(wb, fileName);
+});
+
+</script>
+</body>
+</html>

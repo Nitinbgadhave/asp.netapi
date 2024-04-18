@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <title>User Details</title>
+  <style>
+    /* Your existing styles remain unchanged */
+
+    /* ... */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #aec7d1;
+      margin: 0;
+      padding: 0;
+    }
+
+    .details-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .details-box {
+      background-color: #dcb5b5;
+      padding: 50px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 25px;
+    }
+
+    label {
+      flex: 1; /* Make the label take up the available space */
+      text-align: right;
+      margin-right: 10px; /* Add some space between the label and the input */
+    }
+
+    input {
+      flex: 2; /* Make the input take up more space */
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    button {
+      width: 48%;
+      padding: 12px;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+      margin-right: 2%;
+    }
+
+    button:hover {
+      background-color: #4c8b4f;
+    }
+
+    #backButton {
+      width: 48%;
+      padding: 12px;
+      border-radius: 10px;
+      background-color: #ccc;
+      color: #333;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    #backButton:hover {
+      background-color: #999;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div class="details-container">
+    <div class="details-box">
+      <div class="logo">
+        <div>
+          <img src="./sil.png" alt="Your Logo" style="height:50px;">
+        </div>
+      </div>
+      <h2><i class="material-icons">engineering</i> Enter Engineer Details</h2>
+      <form id="detailsForm" onsubmit="submitForm(event)">
+
+        <div class="form-group">
+          <label for="empId">Employee ID</label>
+          <input type="text" id="empId" placeholder="EmpID" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" placeholder="First Name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" placeholder="Last Name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Username" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="createPassword">Create Password</label>
+          <input type="text" id="createPassword" placeholder="Create Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}" title="Password must be at least 8 characters and include at least one uppercase letter, one lowercase letter, one digit, and one special character." required>
+        </div>
+        
+       
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" placeholder="Email" required oninput="addEmailExtension()">
+        </div>
+
+        <div class="form-group">
+          <label for="designation">Designation</label>
+          <input type="text" id="designation" placeholder="Designation" required>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+          <button type="submit"><i class="material-icons">person_add</i> Register</button>
+          <button id="backButton" onclick="goBack()"><i class="material-icons">arrow_back</i>Go Back</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      var empId = document.getElementById("empId").value;
+      var firstName = document.getElementById("firstName").value;
+      var lastName = document.getElementById("lastName").value;
+      var username = document.getElementById("username").value;
+      var createPassword = document.getElementById("createPassword").value;
+      var email = document.getElementById("email").value;
+      var designation = document.getElementById("designation").value;
+
+      // Form validation (you can add more validation if needed)
+
+      // Create a data object to send to the server
+      var formData = new FormData();
+      formData.append("empId", empId);
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("username", username);
+      formData.append("createPassword", createPassword);
+      formData.append("email", email);
+      formData.append("designation", designation);
+
+      // Send form data using fetch API
+      fetch("https://script.google.com/macros/s/AKfycbzdT_FsBOscmPve4ENZP129hAmzLCwRf34Yr2n6oXPfD_iWgCo4VjPMGkz0wUlbPE-4fw/exec", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Registration successful");
+          document.getElementById("detailsForm").reset(); // Reset the form after successful submission
+        } else {
+          throw new Error("Network response was not ok.");
+        }
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      });
+    }
+    function goBack() {
+      // Add any specific behavior for the back button, e.g., navigating to the previous page
+      window.location.href = "./report admin.html";
+    }
+  </script>
+ <script>
+var atSymbolAdded = false;
+
+function addEmailExtension() {
+  var emailInput = document.getElementById("email");
+  var currentText = emailInput.value;
+
+  // Check if the "@" symbol is entered and hasn't been added before
+  if (currentText.includes("@") && !atSymbolAdded) {
+    // Remove any existing "@" symbols
+    currentText = currentText.replace(/@/g, "");
+
+    // Append the extension
+    emailInput.value = currentText + "@silsers.com";
+    
+    // Set the flag to true to indicate "@" is added
+    atSymbolAdded = true;
+  } else if (!currentText.includes("@")) {
+    // Reset the flag when "@" is removed
+    atSymbolAdded = false;
+  }
+}
+</script>
+</body>
+</html>

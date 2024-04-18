@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Login</title>
+  <!-- Include Material Icons stylesheet -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+   /* Your existing styles remain unchanged */
+
+    /* ... */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #aec7d1;
+      margin: 0;
+      padding: 0;
+    }
+
+    .details-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .details-box {
+      background-color: #dcb5b5;
+      padding: 100px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 25px;
+    }
+
+    input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 10px;
+      border: 5px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 48%;
+      padding: 10px;
+      border-radius: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-right: 2%;
+    }
+
+    button:hover {
+      background-color: #4c8b4f;
+    }
+
+    #backButton {
+      width: 48%;
+      padding: 10px;
+      border-radius: 15px;
+      background-color: #ccc;
+      color: #333;
+      border: none;
+      cursor: pointer;
+    }
+
+    #backButton:hover {
+      background-color: #999;
+    }
+    #passwordVisibilityIcon {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+  }
+  .input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    padding-right: 20px; /* Space for the icon */
+}
+
+.password-input i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+
+.password-input i:hover {
+    color: #333;
+}
+
+  </style>
+</head> 
+<body>
+  <div class="details-container">
+    
+    <div class="details-box">
+      <div class="logo">
+        <div>
+          <img src="./sil.png" alt="Your Logo" style="height:50px;">
+        </div>
+      </div>
+      <h2><i class="material-icons">person</i> Engineer's Login</h2>
+      <form id="loginForm" onsubmit="login(event)">
+        <div class="input-container">
+          <i class="material-icons">person</i>
+          <label for="empId">Employee ID:</label>
+          <input type="text" id="empId" name="empId" placeholder="EmpId" required>
+        </div><br>
+        
+        <div class="input-container">
+          <i class="material-icons">account_circle</i>
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" placeholder="Username" required>
+        </div><br>
+        
+        <div class="input-container">
+          <i class="material-icons">lock</i>
+          
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" placeholder="Password" required>
+          <i class="material-icons" id="passwordVisibilityIcon" onclick="togglePasswordVisibility()">visibility</i>
+        </div><br>
+        
+        
+        <div style="display: flex; justify-content: space-between;">
+          <button type="submit" style="margin-right: 5%;"><i class="material-icons">person_add</i> Login</button>
+          <button id="backButton" onclick="goBack()"><i class="material-icons">arrow_back</i> Back</button>
+        </div>
+      </form>
+    </div>
+
+  <script>
+     function login(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      var empId = document.getElementById("empId").value;
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // Create a data object to send to the server
+      var formData = new FormData();
+      formData.append("empId", empId);
+      formData.append("username", username);
+      formData.append("password", password);
+
+      // Send form data using fetch API
+      fetch("https://script.google.com/macros/s/AKfycbww4xBH6X82E7c4dbwZXiGH7jVGl9MDlD6Zbw6aBac3pTKfQKsJcXxziNUHBFvJfTm34Q/exec", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json(); // Assuming the server sends back JSON with authentication result
+        } else {
+          throw new Error("Network response was not ok.");
+        }
+      })
+      .then(data => {
+        if (data.success) {
+          alert("Login successful");
+          // Redirect to the next page
+          var url = "./select.html?employeeId=" +  empId;
+          window.location.href = url;
+        } else {
+          alert("Login failed: " + data.message);
+        }
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      });
+    }
+    function goBack() {
+      // Add any specific behavior for the back button, e.g., navigating to the previous page
+      window.location.href = "./index.html";
+    }
+    function togglePasswordVisibility() {
+    var passwordInput = document.getElementById("password");
+    var passwordVisibilityIcon = document.getElementById("passwordVisibilityIcon");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      passwordVisibilityIcon.innerText = "visibility_off"; // Change icon to hide
+    } else {
+      passwordInput.type = "password";
+      passwordVisibilityIcon.innerText = "visibility"; // Change icon to show
+    }
+  }
+  </script>
+</body>
+</html>

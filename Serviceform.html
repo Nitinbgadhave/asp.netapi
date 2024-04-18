@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Services Engineer Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style></style>
+    <link rel="stylesheet" href="./Serviceform.css">
+  </head>
+<body>
+    <div class="container">
+
+        <header>
+            <img src="./sil.png" alt="Company Logo">
+        </header>
+        <Center><h2>Services Report</h2></Center>
+        <form method="POST" action="https://script.google.com/macros/s/AKfycbwMVQZkA_10DFgBOJenvkTDUP02P2ldA4nY0zqrYAV9-jYBd4kJy615HYDGnvYrlwdDVg/exec">  
+                 <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbydejp5_OmeTuG80jsEGh9t3O3WH3L-ExmCYWrSM7dE9_21raNt94GI03PlWIYCc9q7Bg/exec">   -->
+                <div class="form-group">
+                    <label for="EmpID">Emp ID<span class="mandatory"></span>:</label>
+                    <input type="text" id="EmpID" name="EmpID" pattern="[0-9]+" title="Please enter only numbers" required>
+                </div>                    
+                <div class="form-group">
+                    <label for="Engineer Name">Engineer Name<span class="mandatory"></span>:</label>
+                    <input type="text" id="Engineer Name" name="Engineer Name"  required>
+                </div>
+            <div class="form-group">
+                <label for="Company Name">Company Name<span class="mandatory"></span>:</label>
+                <input type="text" id="Company Name" name="Company Name" required>
+            </div>
+            <div class="form-group">
+                <label for="Company Address">Company Address<span class="mandatory"></span>:</label>
+                <input type="text" id="Company Address" name="Company Address" required>
+            </div>
+            <div class="form-group">
+                <label for="Select Machine Type">Select Machine Type<span class="mandatory"></span>:</label>
+                <select id="Select Machine Type" name="Select Machine Type" onchange="showMachineCodeInput()" required>
+                    <option value="">Select Machine Type</option>
+                    <option value="Ecat sheet Cutting">Ecat sheet Cutting</option>
+                    <option value="Backhoff sheet Cutting">Backhoff sheet Cutting</option>
+                    <option value="Fanuc sheet Cutting">Fanuc sheet Cutting</option>
+                    <option value="3 Chuck tube Cutting">3 Chuck tube Cutting</option>
+                    <option value="2 Chuck tube Cutting">2 Chuck tube Cutting</option>
+                    <option value="Sheet + Tube Cutting Machine">Sheet + Tube Cutting Machine</option>
+                    <option value="Welding Machine">Welding Machine</option>
+                    <option value="Marking Machine">Marking Machine</option>
+                    <option value="Laser Cutting">Laser Cutting</option>
+                    <option value="Ingraver Machine">Ingraver Machine</option>
+                    <option value="Router Machine">Router Machine</option>
+                    <option value="Robot Cutting / Welding">Robot Cutting / Welding</option>
+                    <option value="SPM">SPM</option>
+                    <option value="Other">Other</option>
+                    <!-- Add more machine types as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Select Service Type">Select Service Type<span class="mandatory"></span>:</label>
+                <select id="Select Service Type" name="Select Service Type" onchange="showServiceCodeInput()" required>
+                    <option value="">Select Service Type</option>
+                    <option value="In warranty">In warranty</option>
+                    <option value="Out of Warrenty">Out of Warranty(Paid Service)</option>
+                    <option value="Out of Warrenty">Out of Warranty(Free of Cost)</option>
+                    <option value="AMC">AMC</option>
+                    <option value="Preventive Maintainance Visit">Preventive Maintainance Visit</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>          
+            <div class="form-group">
+                <label for="Machine Serial Number">Machine Serial Number<span class="mandatory"></span>:</label>
+                <input type="text" id="Machine Serial Number" name="Machine Serial Number" required>
+            </div>
+           
+            <div class="form-group">
+                <label for="Start-Date">Start Date<span class="mandatory"></span>:</label>
+                <input type="date" id="Start-Date" name="Start-Date" required>
+            </div>
+            <div class="form-group">
+                <label for="End-Date">End Date<span class="mandatory"></span>:</label>
+                <input type="date" id="End-Date" name="End-Date" required>
+            </div>
+            <div id="workingDays"></div><br><br>
+            <div class="form-group">
+                <label for="Total-Working-Days"> Number of Working Days<span class="mandatory"></span>:</label>
+                <input type="number" id="Total-Working-Days" name="Total-Working-Days" min="1" step="1" required>
+            </div>
+            <label for="selectArea">Select Area<span class="mandatory"></span>:</label>
+            <div class="custom-dropdown">
+                <div id="dropdownContent" class="dropdown-content">
+                    <label><input type="checkbox" id="checkbox_MACHINE" value="MACHINE" onchange="updateSelectedAreas()"> MACHINE</label><br>
+                    <label><input type="checkbox" id="checkbox_PALLET_SYSTEM" value="PALLET_SYSTEM" onchange="updateSelectedAreas()"> PALLET_SYSTEM</label><br>
+                    <label><input type="checkbox" id="checkbox_CUTTING_HEAD" value="CUTTING_HEAD" onchange="updateSelectedAreas()"> CUTTING_HEAD</label><br>
+                    <label><input type="checkbox" id="checkbox_SOFTWARE" value="SOFTWARE" onchange="updateSelectedAreas()"> SOFTWARE</label><br>
+                    <label><input type="checkbox" id="checkbox_LASER" value="LASER" onchange="updateSelectedAreas()"> LASER</label><br>
+                    <label><input type="checkbox" id="checkbox_CHILLER" value="CHILLER" onchange="updateSelectedAreas()"> CHILLER</label><br>
+                    <label><input type="checkbox" id="checkbox_EXHAUST_SUCTION" value="EXHAUST_SUCTION" onchange="updateSelectedAreas()"> EXHAUST_SUCTION</label><br>
+                    <label><input type="checkbox" id="checkbox_NESTING_SOFTWARE" value="NESTING_SOFTWARE" onchange="updateSelectedAreas()"> NESTING_SOFTWARE</label><br>
+                    <label><input type="checkbox" id="checkbox_CUTTING_APPLICATIONS" value="CUTTING_APPLICATIONS" onchange="updateSelectedAreas()"> CUTTING_APPLICATIONS</label><br>
+                    <label><input type="checkbox" id="checkbox_OTHER_TYPE_ISSUES" value="OTHER_TYPE_ISSUES" onchange="updateSelectedAreas()"> OTHER_TYPE_ISSUES</label><br>
+                                <!-- Add other checkboxes here -->
+                </div>
+            </div>
+    
+        <!-- Your form content here -->
+        <div id="problemSelection" style="display: none;">
+            <h3>Select Problems:</h3>
+            <div id="problems"></div>
+        </div>
+        <input type="hidden" name="selectArea" id="selectArea">
+        <input type="hidden" name="selectedProblems" id="selectedProblems">
+        <!-- <button type="submit">Submit</button> -->
+    <!-- </form> -->
+    
+    
+    <div class="form-group">
+        <label for="Description">Description<span class="mandatory"></span>:</label>
+        <textarea id="Description" name="Description" rows="4" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Diagnosis">Diagnosis<span class="mandatory"></span>:</label>
+        <textarea id="Diagnosis" name="Diagnosis" rows="2" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Status">Result<span class="mandatory"></span>:</label>
+        <select id="Status" name="Status" required>
+            <option value="">Select Status</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+        <input type="hidden" id="Token Number" name="Token Number">
+    </div>
+    <div class="form-group">
+        <label for="Customer Feedback">Customer Feedback:</label>
+        <textarea id="Customer Feedback" name="Customer Feedback" rows="7" ></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Customer Name Seal & Sign">Customer Name Seal & Sign:</label>
+        <textarea id="Customer Name Seal & Sign" name="Customer Name Seal & Sign" rows="4" ></textarea>
+    </div>
+    <div style="text-align: center;">
+        <button type="submit" id="submitButton" style="color: #ffffff; background-color: #4CAF50; padding: 10px 20px; font-size: 16px; float: left;">
+            <i class="material-icons">send</i> Submit
+        </button>
+        <a href="./select.html" id="dashboardLink" style="color: #ffffff; background-color: #d9534f; padding: 10px 20px; font-size: 16px; text-decoration: none; margin-left: 10px; float: right;">
+            <i class="material-icons">dashboard</i> Go To Dashboard
+        </a>
+        <div style="clear: both;"></div> <!-- Add a clearing element to prevent content overlap -->
+    
+        <script>
+            document.getElementById('submitButton').addEventListener('click', function (event) {
+                // Ask for permission before submitting
+                if (!confirm('Are you sure you want to submit?')) {
+                    event.preventDefault(); // Prevent the default submit action if the user declines
+                }
+            });
+    
+            document.getElementById('dashboardLink').addEventListener('click', function (event) {
+                // Ask for permission before navigating to the dashboard
+                if (!confirm('Are you sure you want to go to the dashboard?')) {
+                    event.preventDefault(); // Prevent the default link action if the user declines
+                }
+            });
+        </script>
+    </div>
+    </div>
+</form>
+</div>
+<script src="./Serviceform.js"></script>
+</body>
+</html>
