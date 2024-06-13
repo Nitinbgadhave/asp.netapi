@@ -2,25 +2,22 @@
 <html>
 <head>
     <title>All Engineer Transactions History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <style>
-  
-  body {
+   body {
     font-family: Arial, sans-serif;
     margin: 20px;
     background-color: white;
 }
 
-
 h1 {
     text-align: center;
-    margin-bottom: 20px;
-}
-
-form {
     margin-bottom: 20px;
 }
 
@@ -28,6 +25,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    overflow-x: auto; /* Enable horizontal scrolling on small screens */
 }
 
 table, th, td {
@@ -54,15 +52,16 @@ tr:hover {
 button {
     padding: 10px 20px;
     border: none;
-    background-color: #007bff; /* Blue color */
+    background-color: #007bff;
     color: white;
     cursor: pointer;
     margin-right: 10px;
 }
 
 button:hover {
-    background-color: #0056b3; /* Darker blue color */
+    background-color: #0056b3;
 }
+
 label {
     font-weight: bold;
     margin-right: 10px;
@@ -72,123 +71,156 @@ input[type="date"] {
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 3px;
+    width: 100%; /* Full width on small screens */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
+@media only screen and (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
 
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
 </style>
 <body>
-    <h1>All Engineer Transactions History</h1>
-    <form id="dateFilterForm">
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate" required>
+    <div class="container">
+        <h1>All Engineer Transactions History</h1>
+        <form id="dateFilterForm" class="form-inline mb-4">
+            <div class="form-group mr-2">
+                <label for="startDate" class="mr-2">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" class="form-control" required>
+            </div>
+            <div class="form-group mr-2">
+                <label for="endDate" class="mr-2">End Date:</label>
+                <input type="date" id="endDate" name="endDate" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
 
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate" required>
-
-        <button type="submit">Filter</button>
-    </form>
-
-    <table id="transactionTable">
-        <thead>
-            <tr>
-                <th>Employee ID</th>
-                <th>Employee Name</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Visit Date</th>
-                <th>Reference Number</th>
-                <th>Credit</th>
-                <th>Debit</th>
-                <th>Balance</th>
-            </tr>
-        </thead>
-        <tbody id="transactionList">
-            <!-- Transactions will be displayed here -->
-        </tbody>
-    </table>
-    <button id="exportPDF">Export to PDF</button>
-    <button id="exportXLSX">Export to Excel</button>
+        <div class="table-responsive">
+            <table id="transactionTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Visit Date</th>
+                        <th>Reference Number</th>
+                        <th>Credit</th>
+                        <th>Debit</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionList">
+                    <!-- Transactions will be displayed here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="mb-3">
+            <button id="exportPDF" class="btn btn-danger">Export to PDF</button>
+            <button id="exportXLSX" class="btn btn-success">Export to Excel</button>
+        </div>
+    </div>
 
     <script>
+        document.getElementById('dateFilterForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
 
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
 
-document.getElementById('dateFilterForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
+            fetch(`https://114.143.65.90:8433/api/CDTransactions/TransactionHistorys?startDate=${startDate}&endDate=${endDate}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const transactionList = document.getElementById('transactionList');
+                    transactionList.innerHTML = ''; // Clear previous data
 
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
+                    data.transactions.forEach((transaction, index) => {
+                        const row = document.createElement("tr");
+                        const credit = transaction.creditTransaction || 0;
+                        const debit = transaction.debitTransaction || 0;
+                        let balance = transaction.currentBalance || 0;
 
-    fetch(`https://localhost:7174/api/CDTransactions/TransactionHistorys?startDate=${startDate}&endDate=${endDate}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const transactionList = document.getElementById('transactionList');
-            transactionList.innerHTML = ''; // Clear previous data
+                        // Check if the transaction is a credit transaction and if visitDate is minimum value
+                        if (credit > 0 && new Date(transaction.visitDate).getTime() === new Date(0).getTime()) {
+                            return; // Skip this row if it's a credit transaction with a minimum visitDate
+                        }
 
-            data.transactions.forEach((transaction, index) => {
-                const row = document.createElement("tr");
-                const credit = transaction.creditTransaction || 0;
-                const debit = transaction.debitTransaction || 0;
-                let balance = transaction.currentBalance || 0;
+                        row.innerHTML = `
+                            <td>${transaction.employeeID}</td>
+                            <td>${transaction.employeeName}</td>
+                            <td>${new Date(transaction.date).toLocaleDateString('en-GB')}</td>
+                            <td>${transaction.notes}</td>
+                            <td>${credit > 0 ? '' : new Date(transaction.visitDate).toLocaleDateString('en-GB')}</td>
+                            <td>${transaction.referenceNumber}</td>
+                            <td>${credit}</td>
+                            <td>${debit}</td>
+                            <td>${balance}</td>
+                        `;
 
-                // Check if the transaction is a credit transaction and if visitDate is minimum value
-                if (credit > 0 && new Date(transaction.visitDate).getTime() === new Date(0).getTime()) {
-                    return; // Skip this row if it's a credit transaction with a minimum visitDate
-                }
+                        if (index === 0) {
+                            row.classList.add("highlight-green");
+                        }
 
-                row.innerHTML = `
-                <td>${transaction.employeeID}</td>
-                <td>${transaction.employeeName}</td>
-                <td>${new Date(transaction.date).toLocaleDateString('en-GB')}</td>
-                    <td>${transaction.notes}</td>
-    <td>${credit > 0 ? '' : new Date(transaction.visitDate).toLocaleDateString('en-GB')}</td>
-                    <td>${transaction.referenceNumber}</td>
-                    <td>${credit}</td>
-                    <td>${debit}</td>
-                    <td>${balance}</td>
-                `;
-
-                if (index === 0) {
-                    row.classList.add("highlight-green");
-                }
-
-                transactionList.appendChild(row);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
+                        transactionList.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         });
-});
 
-document.getElementById('exportPDF').addEventListener('click', function() {
-    const element = document.getElementById('transactionTable');
-    const startDate = document.getElementById('startDate').value; // Assuming you have input elements with id 'startDate' and 'endDate'
-    const endDate = document.getElementById('endDate').value;
-    const filename = `transactions_${startDate}_to_${endDate}.pdf`;
+        document.getElementById('exportPDF').addEventListener('click', function() {
+            const element = document.getElementById('transactionTable');
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const filename = `transactions_${startDate}_to_${endDate}.pdf`;
 
-    const opt = {
-        margin:       1,
-        filename:     filename,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
-    };
-    html2pdf().from(element).set(opt).save();
-});
-document.getElementById('exportXLSX').addEventListener('click', function() {
-    const table = document.getElementById('transactionTable');
-    const startDate = document.getElementById('startDate').value; // Assuming you have input elements with id 'startDate' and 'endDate'
-    const endDate = document.getElementById('endDate').value;
-    const filename = `transactions_${startDate}_to_${endDate}.xlsx`;
+            const opt = {
+                margin: 1,
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
+            html2pdf().from(element).set(opt).save();
+        });
 
-    const wb = XLSX.utils.table_to_book(table, { sheet: 'Sheet JS' });
-    XLSX.writeFile(wb, filename);
-});
+        document.getElementById('exportXLSX').addEventListener('click', function() {
+            const table = document.getElementById('transactionTable');
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const filename = `transactions_${startDate}_to_${endDate}.xlsx`;
 
+            const wb = XLSX.utils.table_to_book(table, { sheet: 'Sheet JS' });
+            XLSX.writeFile(wb, filename);
+        });
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

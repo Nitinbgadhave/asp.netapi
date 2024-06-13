@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,8 +24,8 @@
     }
     h1.welcome {
       margin: 0;
-      font-size: 32px; /* Increased font size */
-      font-weight: bold; /* Bold text */
+      font-size: 32px;
+      font-weight: bold;
       color: #120f01;
     }
     nav ul {
@@ -33,7 +35,7 @@
     }
     nav ul li {
       display: inline;
-      margin: 0 30px; /* Added spacing between buttons */
+      margin: 0 30px;
     }
     nav ul li a {
       text-decoration: none;
@@ -41,8 +43,8 @@
       padding: 15px 30px;
       border-radius: 5px;
       transition: background-color 0.3s ease;
-      font-size: 18px; /* Increased font size */
-      font-weight: bold; /* Bold text */
+      font-size: 18px;
+      font-weight: bold;
     }
     nav ul li:nth-child(1) a,
     nav ul li:nth-child(2) a,
@@ -51,7 +53,7 @@
       background-color: #777;
     }
     nav ul li a:hover {
-      background-color: #777;
+      background-color: #555;
     }
     .logo {
       text-align: center;
@@ -70,152 +72,159 @@
       border-radius: 5px;
       background-color: #dc1919;
       transition: background-color 0.3s ease;
-      font-size: 18px; /* Increased font size */
-      font-weight: bold; /* Bold text */
+      font-size: 18px;
+      font-weight: bold;
     }
     #logoutBtn:hover {
       background-color: #e71e1e;
     }
     #registerEngineerBtn {
-      background-color: #4CAF50; /* Green background color */
-      color: white; /* White text color */
-      border: none; /* No border */
-      padding: 15px 30px; /* Padding */
-      text-align: center; /* Centered text */
-      text-decoration: none; /* Remove underline */
-      display: inline-block; /* Display as inline block */
-      font-size: 18px; /* Font size */
-      font-weight: bold; /* Bold text */
-      border-radius: 5px; /* Rounded corners */
-      transition: background-color 0.3s ease; /* Smooth background color transition */
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
     }
-
     #registerEngineerBtn:hover {
-      background-color: #45a049; /* Darker green on hover */
+      background-color: #45a049;
     }
-    /* Button styles */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  background-color: #007bff;
-  border: 2px solid #007bff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-}
-
-.btn:hover {
-  background-color: #e7f0f0;
-  border-color: #f0f1f3;
-}
-
-/* Icon styles */
-.btn i {
-  margin-right: 5px;
-}
- /* Existing styles remain unchanged */
-
-    /* Set all button colors to the same color */
+    .btn-custom {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background-color: #007bff;
+      border: 2px solid #007bff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .btn-custom:hover {
+      background-color: #e7f0f0;
+      border-color: #f0f1f3;
+    }
+    .btn-custom i {
+      margin-right: 5px;
+    }
     .button-container a,
     .button-container button {
-        background-color: #777; /* Set the desired color */
-        color: white; /* Set text color to white */
-        border: none; /* Remove border */
-        padding: 15px 30px; /* Set padding */
-        text-align: center; /* Center text */
-        text-decoration: none; /* Remove underline */
-        display: inline-block; /* Display as inline block */
-        font-size: 18px; /* Set font size */
-        font-weight: bold; /* Set font weight to bold */
-        border-radius: 5px; /* Add rounded corners */
-        transition: background-color 0.3s ease; /* Smooth background color transition */
-        margin-bottom: 10px; /* Add space between buttons */
+      background-color: #777;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      margin-bottom: 10px;
     }
-
-    /* Set hover effect for buttons */
     .button-container a:hover,
     .button-container button:hover {
-        background-color: #555; /* Darken the color on hover */
+      background-color: #555;
     }
     #logoutBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
 
+    /* Media query for screens smaller than 768px (mobile devices) */
+    @media only screen and (max-width: 768px) {
+      nav ul li {
+        display: block;
+        margin: 10px 0; /* Added spacing between buttons */
+      }
+      nav ul li a {
+        padding: 10px 15px; /* Reduced padding for smaller buttons */
+        font-size: 16px; /* Reduced font size for smaller screens */
+      }
+      .logo img {
+        height: 80px; /* Reduced logo size for smaller screens */
+      }
+      #logoutBtn {
+        bottom: 10px; /* Adjusted position for smaller screens */
+        right: 10px; /* Adjusted position for smaller screens */
+        font-size: 16px; /* Reduced font size for smaller screens */
+        padding: 10px 20px; /* Reduced padding for smaller buttons */
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <h1 class="welcome" style="font-size: 40px;">Welcome To Reports!</h1>
-
     <div class="logo">
-      <div>
-        <img src="./sil.png" alt="Your Logo" style="height: 100px;">
-      </div>
+      <img src="./sil.png" alt="Your Logo" style="height: 100px;">
     </div>
-  </header>
+  </header><br><br>
 
   <main>
-    <nav><br><br><br>
-      <ul>
-        <!-- Existing navigation links remain unchanged -->
-        <li><a href="https://docs.google.com/spreadsheets/d/1_JZYSKANxw8OCcrmXtF3LhGz0PXnTgl9WUs71Fl3znk/edit?usp=drive_link" class="blink"><i class="material-icons">assignment</i>Daily Work Reports</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1eMAqvEqRSgV1MM7HH4qxt12aKNjqwxHaE2YXm7WLHt0/edit?usp=drive_link" class="blink"><i class="material-icons">description</i>Service Reports</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1BvLMVYwNYZoyLwNX7reqiSMJ5k91IrhxIySU58JpbCw/edit?usp=drive_link" class="blink"><i class="material-icons">build</i>Installation Reports</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1LnXt4b0uw1mLlGDUDUqTEWlHYWLEdFybs_I2Z7-RyZw/edit?usp=drive_link" class="blink"><i class="material-icons">list_alt</i>Registered Engineer's List</a></li>
+    <nav class="mb-5">
+      <ul class="nav flex-column flex-md-row justify-content-center">
+        <li class="nav-item mb-3 mb-md-0">
+          <a href="https://docs.google.com/spreadsheets/d/1_JZYSKANxw8OCcrmXtF3LhGz0PXnTgl9WUs71Fl3znk/edit?usp=drive_link" class="btn btn-secondary"><i class="material-icons">assignment</i>Daily Work Reports</a>
+        </li>
+        <li class="nav-item mb-3 mb-md-0">
+          <a href="https://docs.google.com/spreadsheets/d/1eMAqvEqRSgV1MM7HH4qxt12aKNjqwxHaE2YXm7WLHt0/edit?usp=drive_link" class="btn btn-secondary"><i class="material-icons">description</i>Service Reports</a>
+        </li>
+        <li class="nav-item mb-3 mb-md-0">
+          <a href="https://docs.google.com/spreadsheets/d/1BvLMVYwNYZoyLwNX7reqiSMJ5k91IrhxIySU58JpbCw/edit?usp=drive_link" class="btn btn-secondary"><i class="material-icons">build</i>Installation Reports</a>
+        </li>
+        <li class="nav-item mb-3 mb-md-0">
+          <a href="https://docs.google.com/spreadsheets/d/1LnXt4b0uw1mLlGDUDUqTEWlHYWLEdFybs_I2Z7-RyZw/edit?usp=drive_link" class="btn btn-secondary"><i class="material-icons">list_alt</i>Registered Engineer's List</a>
+        </li>
       </ul>
-    </nav><br><br><br>
+    </nav>
 
-    <div class="button-container">
-      <a href="#" id="registerEngineerBtn" class="btn"><i class="material-icons">person_add</i>Register New Engineer</a>
-      <a href="#" id="adminCreditBtn" class="btn"><i class="material-icons">account_balance</i>Admin Credit</a>
-      <button id="showBalancesBtn" class="btn">
-        <i class="material-icons">list_alt</i>
-       Check All Engineer's Balance
-      </button>
-      
+    <div class="button-container text-center">
+      <a href="#" id="registerEngineerBtn" class="btn btn-success"><i class="material-icons">person_add</i>Register New Engineer</a>
+      <a href="#" id="adminCreditBtn" class="btn btn-success"><i class="material-icons">account_balance</i>Admin Credit</a>
+      <button id="showBalancesBtn" class="btn btn-success"><i class="material-icons">list_alt</i>Check All Engineer's Balance</button>
     </div>
     
-    <a href="#" id="logoutBtn" class="blink"><i class="material-icons">logout</i>Logout</a>
+    <a href="#" id="logoutBtn" class="btn btn-danger"><i class="material-icons">logout</i>Logout</a>
   </main>
 
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="adminhome.js"></script>
   <script>
     document.getElementById('logoutBtn').addEventListener('click', function() {
-      // Display confirmation dialog
       var logoutConfirmed = confirm('Are you sure you want to logout?');
-
-      // If the user confirms, perform logout action
       if (logoutConfirmed) {
-        // Add your logout logic here, for example redirecting to a logout page
         window.location.href = './index.html';
-        alert('Logout successful'); // Replace with your actual logout code
+        alert('Logout successful');
       }
     });
 
     document.getElementById('registerEngineerBtn').addEventListener('click', function() {
-      // Redirect to the engineer registration page
       window.location.href = './Engineer Registration.html';
     });
+
     document.getElementById('adminCreditBtn').addEventListener('click', function() {
-      // Redirect to the engineer registration page
-      window.location.href = 'D:/Projects/Sil_Service_Form/Final pages/New Updates in Project/API & Database coonection with HTML/CreditAndDebit - Copy/HTML/AdminCredit.html';
+      window.location.href = './AdminCredit.html';
+    });
+
+    document.getElementById('showBalancesBtn').addEventListener('click', async () => {
+      const response = await fetch('https://114.143.65.90:8433/api/CDTransactions/AllEngineersBalance');
+      const data = await response.json();
+      localStorage.setItem('engineerBalances', JSON.stringify(data));
+      window.location.href = './AllEngineersBalance.html';
     });
   </script>
-   <script>
-    document.getElementById('showBalancesBtn').addEventListener('click', async () => {
-        const response = await fetch('https://localhost:7174/api/CDTransactions/AllEngineersBalance');
-        const data = await response.json();
-        localStorage.setItem('engineerBalances', JSON.stringify(data));
-        window.location.href = 'D:/Projects/Sil_Service_Form/Final pages/New Updates in Project/API & Database coonection with HTML/CreditAndDebit - Copy/HTML/AllEngineersBalance.html'; // Redirect to the page where the balances will be displayed
-    });
-</script>
 </body>
 </html>

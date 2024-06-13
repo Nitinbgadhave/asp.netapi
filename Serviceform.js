@@ -103,7 +103,7 @@ let selectedAreaProblems = {};
 
 // Define problems for each area
 const problemsByArea = {
-  MACHINE: ["DRIVE ALARM", "HARD LIMIT ALARM", "ZIG ZAG CUTTING", "CAPACITANCE SENSOR", "AXIS SENSOR", "OTION NOISE", "GAS PRESSURE ALARM", "AXIX SODT LIMIT", "GAS LEAKAG", "GAS FLOW", "DIAGONAL", "COMMUNICATION BREAK", "OVALITY / CIRCULARITY", "EPR ISSUE", "OTHERS"],
+  MACHINE: ["DRIVE ALARM", "HARD LIMIT ALARM", "ZIG ZAG CUTTING", "CAPACITANCE SENSOR", "AXIS SENSOR", "OTION NOISE", "GAS PRESSURE ALARM", "AXIS SODT LIMIT", "GAS LEAKAGE", "GAS FLOW", "DIAGONAL", "COMMUNICATION BREAK", "OVALITY / CIRCULARITY", "EPR ISSUE", "OTHERS"],
   PALLET_SYSTEM: ["NO PALLET MOVEMENT", "PALLET A/B LIMIT ALARM", "PALLET SPEED PROBLEM", "PALLET SLOW LIMIT NOT WORKING", "PALLET CRASHING WITH LOCKING SYSTEM/STOPPER", "PALLET MAKING NOISE DURING MOVEMENT", "PPALLET CHAIN BROKEN", "PALLET CLAMPING ISSUE", "CHAIN GUIDE WEAR OUT/DAMAGE", "PALLET MOTOR MAKING NOICE", "VFD SHOWING ERROR", "PALLET RAIL AND WHEELS", "OTHERS"],
   CUTTING_HEAD: ["OPTICAL", "FREQLENT PROTECTION GAS DAMAGE","CERAMIC BRAKING","TRA PLATE DAMAGE","HEAD SENSING","HEAD TIP TOUCH","HEAD TEMPERATURE RISE / FALL","CAPACITANCE CALIBRATION","HEAD TEMPERATURE ALARM","HEAD CALIBRATION ","OTHERS"],
   SOFTWARE: ["SOFTWARE NOT BOOTING UP", "LICENSE EXPIRE","PLC NOT RUNNING", "HMI PARAMETER GOT CHANGED","GHOST INSTALL","HMI MALFUNCTION","HMI GOT STUCK","CUTTING LAYER NOT WORKING","HMI LANGUAGE GOT CHANGED","UNWANTED ALARMS GENERATED","NO LOADING PARAMETERS","CUTTING LAYER NOT WORKING","MATERIAL BURNING","FLIM CUT","OTHERS"],
@@ -155,18 +155,6 @@ temp = temp.concat(problems);
 document.getElementById('selectedProblems').value = temp.join(',');
 }
 
-    
-//         document.getElementById('EmpID').addEventListener('blur', function() {
-//     var empId = this.value;
-//     fetch('https://script.google.com/macros/s/AKfycbz22oMHNJRDu-wE3UPTXzyXsyg6WlZJGehuR2fVs5Ub7dpzFEQ9X_f0tNTDgkc5ytuoLA/exec?empId=' + empId)
-//     .then(response => response.json())
-//     .then(data => {
-//         document.getElementById('Engineer Name').value = data.engineer_Name;
-//     })
-//     .catch(error => console.error(' ', error));
-// });
-
-   
 
 // FETCH FIRST AND LAST NAME
 document.getElementById('EmpID').addEventListener('blur', function() {
@@ -186,3 +174,62 @@ document.getElementById('EmpID').addEventListener('blur', function() {
   .catch(error => console.error('Error:', error));
   });
   
+// image preview
+function previewImage(event) {
+  var preview = document.getElementById('preview');
+  preview.style.display = "block";
+  preview.src = URL.createObjectURL(event.target.files[0]);
+
+  var file = event.target.files[0];
+  var maxSize = 1024; // Maximum image size in KB
+  compressImage(file, maxSize, function (compressedFile) {
+    convertImageToBase64(compressedFile, function (base64) {
+      document.getElementById('imageBase64').value = base64;
+    });
+  });
+}
+
+function convertImageToBase64(file, callback) {
+  var reader = new FileReader();
+  reader.onloadend = function () {
+    var base64data = reader.result.split(',')[1];
+    callback(base64data);
+  };
+  reader.readAsDataURL(file);
+}
+
+function compressImage(file, maxSize, callback) {
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    var img = new Image();
+    img.src = event.target.result;
+    img.onload = function () {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      var maxWidth = 800;
+      var maxHeight = 600;
+      var width = img.width;
+      var height = img.height;
+
+      if (width > height) {
+        if (width > maxWidth) {
+          height *= maxWidth / width;
+          width = maxWidth;
+        }
+      } else {
+        if (height > maxHeight) {
+          width *= maxHeight / height;
+          height = maxHeight;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(function (blob) {
+        callback(new File([blob], file.name));
+      }, 'image/jpeg', 0.7); // 0.7 is the image quality
+    };
+  };
+  reader.readAsDataURL(file);
+}

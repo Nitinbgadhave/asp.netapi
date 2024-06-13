@@ -207,7 +207,7 @@ function goBack() {
 document.getElementById('searchBtn').addEventListener('click', function () {
     var name = document.getElementById('name').value;
     if (name.length >= 3) { // Minimum characters required to start searching
-        fetch(`http://localhost:5246/api/CDTransactions/googlesheet/${name}`)
+        fetch(`http://114.143.65.8433/api/CDTransactions/googlesheet/${name}`)
             .then(response => response.json())
             .then(data => {
                 var nameList = document.getElementById('nameList');
@@ -240,7 +240,7 @@ document.getElementById('searchBtn').addEventListener('click', function () {
 
 
 async function fetchTransactionsByEmployee(employeeId, startDate, endDate) {
-    let url = `https://localhost:7174/api/CDTransactions/TransactionHistory/${employeeId}`;
+    let url = `https://114.143.65.8433/api/CDTransactions/TransactionHistory/${employeeId}`;
     if (startDate && endDate) {
         url += `?startDate=${startDate}&endDate=${endDate}`;
     }
@@ -263,7 +263,7 @@ document.getElementById('filterButton').addEventListener('click', function () {
 
 
 async function fetchTransactionsByEmployee(employeeId, startDate, endDate) {
-    let url = `https://localhost:7174/api/CDTransactions/TransactionHistory/${employeeId}`;
+    let url = `https://114.143.65.8433/api/CDTransactions/TransactionHistory/${employeeId}`;
     if (startDate && endDate) {
         url += `?startDate=${startDate}&endDate=${endDate}`;
     }
@@ -294,7 +294,7 @@ document.getElementById('setCreditButton').addEventListener('click', async funct
     };
 
     // Send a POST request to your API endpoint
-    fetch('https://localhost:7174/api/CDTransactions/AddTransaction', {
+    fetch('https://114.143.65.8433/api/CDTransactions/AddTransaction', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

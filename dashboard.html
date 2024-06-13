@@ -91,40 +91,58 @@
 
   <div class="choose-menu-container">
     <div class="folder-container">
-      <a href="https://drive.google.com/drive/folders/1g4fDuGJ-lQUvghAa2WGubJoJHLlB7eHc?usp=drive_link"
-        class="folder">
+      <a href="https://drive.google.com/drive/folders/1Xhczpf0d-QoctDyGnn0ulcZob-GMFtE0?usp=sharing"
+        class="folder" target="_blank">
         <span class="material-icons icon">folder</span>
-        Tubecutter
+        Nesting Softwares
       </a>
-      <a href="https://drive.google.com/drive/folders/1DX-_JvEQKreOM0zjcXSGgV7b0OmlPhge?usp=drive_link"
-        class="folder">
+      <!-- Add target="_blank" to open in new tab -->
+      <a href="https://drive.google.com/drive/folders/18KZnWFeigGwLkr_-EuXDMlg_PkU_kxik?usp=sharing"
+        class="folder" target="_blank">
         <span class="material-icons icon">folder</span>
-        Fanuc
+        Supporting Softwares
       </a>
-      <a href="https://drive.google.com/drive/folders/1OO2rlclGo6QqDX_eKOAI2JSe4B5dCOts?usp=drive_link"
-        class="folder">
+      <!-- Add target="_blank" to open in new tab -->
+      <a href="https://drive.google.com/drive/folders/13EHHh4gsIsDzy_SunEeiFVZbE7QPGOQ8?usp=sharing"
+        class="folder" target="_blank">
         <span class="material-icons icon">folder</span>
-        Eathergather
+        Supporting Manuals
       </a>
-      <a href="https://drive.google.com/drive/folders/1yj2hjT_DOJPtxjfO9mZdiYgDQ5v0l4Z7?usp=drive_link"
-        class="folder">
+      <!-- Add target="_blank" to open in new tab -->
+      <a href="https://drive.google.com/drive/folders/1hAh83KV9pleuolHGWouciu_vNtjUb9cQ?usp=sharing"
+        class="folder" target="_blank">
         <span class="material-icons icon">folder</span>
-        Backhoff
+        service
       </a>
-      <a href="https://drive.google.com/drive/folders/1yj2hjT_DOJPtxjfO9mZdiYgDQ5v0l4Z7?usp=drive_link"
-        class="folder">
+      <!-- Add target="_blank" to open in new tab -->
+      <a href="https://drive.google.com/drive/folders/1gu-4kwKp4w9WGtwy_DbdHDATOBbnCKl2?usp=sharing"
+        class="folder" target="_blank">
         <span class="material-icons icon">folder</span>
         Laser
       </a>
-      <a href="https://drive.google.com/drive/folders/1yj2hjT_DOJPtxjfO9mZdiYgDQ5v0l4Z7?usp=drive_link"
-        class="folder">
+      <!-- Add target="_blank" to open in new tab -->
+      <a href="https://drive.google.com/drive/folders/1GsyfmNoikPWdxOSkzePJRc0XRvE2Bwpv?usp=sharing"
+        class="folder" target="_blank">
         <span class="material-icons icon">folder</span>
-        Software
+        Sheet Cutting Software
       </a>
+      <a href="https://drive.google.com/drive/folders/1g4fDuGJ-lQUvghAa2WGubJoJHLlB7eHc?usp=sharing"
+      class="folder" target="_blank">
+      <span class="material-icons icon">folder</span>
+      Tubecutter
+    </a>
+      <!-- Add target="_blank" to open in new tab -->
+      <a href="https://drive.google.com/drive/folders/1JW2um46G3v3VKbF5J4K2YgcXFBF_EeWk?usp=sharing"
+      class="folder" target="_blank">
+      <span class="material-icons icon">folder</span>
+      Others
+    </a>
+
     </div>
 
     <div class="logout-container">
-      <button class="logout-btn" onclick="confirmLogout()">
+      <button class="logout-btn" onclick="confirmLogout()" target="_blank">
+        <!-- Add target="_blank" to open in new tab -->
         <span class="material-icons">exit_to_app</span>
         Logout
       </button>
@@ -136,7 +154,7 @@
       var confirmLogout = confirm("Are you sure you want to logout?");
       if (confirmLogout) {
         alert('Logout successful...');
-        window.location.href = './user.html';
+        window.location.href = './UserLogin.html';
       } else {
         alert('Logout canceled.');
       }
